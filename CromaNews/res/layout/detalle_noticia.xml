@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:orientation="vertical">
+	<ScrollView android:id="@+id/ScrollView01"
+		android:layout_width="fill_parent" android:layout_height="fill_parent">
+		<LinearLayout android:orientation="vertical"
+			android:layout_width="fill_parent" android:layout_height="wrap_content"
+			android:id="@+id/dummy">
+			<TextView android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/txtTitulo"
+				android:text="Titulo" android:layout_gravity="center_horizontal"
+				android:textSize="20dp" android:textStyle="bold"></TextView>
+			<ImageView android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/imgNoticia"
+				android:maxWidth="100dp" android:maxHeight="100dp"
+				android:layout_gravity="center_horizontal"></ImageView>
+			<TextView android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/txtDetalle"
+				android:text="Detalle noticia"></TextView>
+			<Button android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/btnCompleto"
+				android:text="Ver Completo"></Button>
+		</LinearLayout>
+	</ScrollView>
+
+</LinearLayout>

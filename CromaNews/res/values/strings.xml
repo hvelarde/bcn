@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, CromaNews!</string>
+    <string name="app_name">BCN News</string>
+    <string name="url_feed">http://bcn.guegue.info/atom</string>
+    <string name="feed_warp">http://bcn.guegue.info/atom</string>
+    <string name="feed_prensa">http://bcn.guegue.info/atom</string>
+</resources>
