@@ -3,7 +3,7 @@
 	package="mx.croma.news.android" android:versionCode="1001"
 	android:versionName="1.0.0.1">
 	<uses-permission android:name="android.permission.INTERNET" />
-	<application android:icon="@drawable/bnclogo" android:label="@string/app_name">
+	<application android:icon="@drawable/bnclogo" android:label="@string/app_name" android:theme="@android:style/Theme.Light.NoTitleBar">
 		<activity android:name=".CromaNews" android:label="@string/app_name">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />

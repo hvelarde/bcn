@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical" android:layout_width="fill_parent"
-	android:layout_height="fill_parent">
-	<ImageView android:src="@drawable/bnclogo" android:id="@+id/imgLogo"
-		android:layout_gravity="center" android:layout_width="wrap_content"
-		android:layout_height="wrap_content" />
-	<Button android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:id="@+id/btnNoticias"
-		android:layout_gravity="center_horizontal" android:layout_marginTop="10dp"
-		android:text='Ver "BCN"'></Button>
-	<!-- <Button android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:id="@+id/btnNoticias2"
-		android:layout_gravity="center_horizontal" android:layout_marginTop="10dp"
-		android:text='Ver "Warp"'></Button> -->
-</LinearLayout>
+<TabHost  android:id="@android:id/tabhost" xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent">
+	<RelativeLayout android:layout_height="fill_parent"
+		android:layout_width="fill_parent">
+		<FrameLayout android:id="@android:id/tabcontent"
+			android:layout_width="fill_parent" android:layout_height="fill_parent" android:paddingBottom="60dp"/>
+		<TabWidget android:id="@android:id/tabs" android:background="@android:color/black"
+			android:layout_alignParentBottom="true" android:layout_width="fill_parent"
+			android:layout_marginTop="-60dp" android:layout_height="wrap_content" />
+	</RelativeLayout>
+</TabHost>
+

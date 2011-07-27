@@ -11,33 +11,47 @@ import org.xml.sax.SAXException;
 import mx.croma.news.android.core.CromaFeedHandler;
 import mx.croma.news.android.core.CromaNewsAdapter;
 import mx.croma.news.android.core.Noticia;
+import android.app.Dialog;
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class ListaNoticias extends ListActivity {
-	
+
 	private String _feedUrl;
 	private ListView lv;
+	private static final int PROGRESS_DIALOG = 0;
+	private ProgressDialog progressDialog;
+	private ProgressThread progressThread;
+	public int progress = 0;
 	@Override
-	public void onCreate(Bundle savedInstance){
+	public void onCreate(Bundle savedInstance) {
 		super.onCreate(savedInstance);
-//		_feedUrl = getResources().getString(R.string.url_feed);
-		_feedUrl = getIntent().getExtras().getString("_feed_");
 		setContentView(R.layout.lista_noticias);
-		 lv = (ListView)findViewById(android.R.id.list);
+		_feedUrl = getResources().getString(R.string.feed_prensa);
+		showDialog(PROGRESS_DIALOG);
+		lv = (ListView) findViewById(android.R.id.list);
 		CromaFeedHandler cfh = new CromaFeedHandler();
 		SAXParserFactory spf = SAXParserFactory.newInstance();
 		try {
+			progress = 10;
 			SAXParser sp = spf.newSAXParser();
+			progress = 20;
 			sp.parse(_feedUrl, cfh);
+			progress = 60;
 			lv.setAdapter(new CromaNewsAdapter(cfh.getNoticias(), this));
+			progress = 80;
 			lv.setOnItemClickListener(new ListaListener());
+			progress = 100;
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		} catch (SAXException e) {
@@ -46,17 +60,76 @@ public class ListaNoticias extends ListActivity {
 			e.printStackTrace();
 		}
 	}
-	
-	private class ListaListener implements OnItemClickListener{
+
+	protected Dialog onCreateDialog(int id) {
+		switch (id) {
+		case PROGRESS_DIALOG:
+			progressDialog = new ProgressDialog(ListaNoticias.this);
+			progressDialog.setMessage("Cargando...");
+			progressDialog.setIndeterminate(true);
+			progressThread = new ProgressThread(handler);
+			progressThread.start();
+			return progressDialog;
+		default:
+			return null;
+		}
+	}
+
+	private class ListaListener implements OnItemClickListener {
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
-			Noticia n = (Noticia)lv.getItemAtPosition(arg2);
+			Noticia n = (Noticia) lv.getItemAtPosition(arg2);
 			Intent i = new Intent(getApplicationContext(), DetalleNoticia.class);
 			i.putExtra("_noticia_", n);
 			startActivity(i);
 		}
-		
+
 	}
-	
+
+	final Handler handler = new Handler() {
+		public void handleMessage(Message msg) {
+			int total = msg.getData().getInt("total");
+			if (total >= 100) {
+				dismissDialog(PROGRESS_DIALOG);
+				progressThread.setState(ProgressThread.STATE_DONE);
+			}
+		}
+	};
+
+	/** Nested class that performs progress calculations (counting) */
+	private class ProgressThread extends Thread {
+		Handler mHandler;
+		final static int STATE_DONE = 0;
+		final static int STATE_RUNNING = 1;
+		int mState;
+
+		ProgressThread(Handler h) {
+			mHandler = h;
+		}
+
+		public void run() {
+			mState = STATE_RUNNING;
+			// total = 0;
+			while (mState == STATE_RUNNING) {
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					Log.e("ERROR", "Thread Interrupted");
+				}
+				Message msg = mHandler.obtainMessage();
+				Bundle b = new Bundle();
+				b.putInt("total", progress);
+				msg.setData(b);
+				mHandler.sendMessage(msg);
+			}
+		}
+
+		/*
+		 * sets the current state for the thread, used to stop the thread
+		 */
+		public void setState(int state) {
+			mState = state;
+		}
+	}
 
 }
