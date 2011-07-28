@@ -33,7 +33,8 @@ public class NoticiaView extends LinearLayout {
 
 		}
 		_titulo = new TextView(context);
-		_titulo.setText(Html.fromHtml("<b>" + n.getTitulo() + "</b>"));
+		_titulo.setHeight(55);
+		_titulo.setText(Html.fromHtml("<b>" + n.getTitulo().trim() + "</b>"));
 		addView(_titulo);
 		// _descripcion = new TextView(context);
 		// _descripcion.setText(n.getDescripcion());
@@ -41,7 +42,7 @@ public class NoticiaView extends LinearLayout {
 	}
 
 	public void update(Noticia n) {
-		_titulo.setText(Html.fromHtml("<b>" + n.getTitulo() + "</b>"));
+		_titulo.setText(Html.fromHtml("<b>" + n.getTitulo().trim() + "</b>"));
 		if (_imagen != null) {
 			_imagen.setImageDrawable(imageFromUrl(n.getImgUrl()));
 		}

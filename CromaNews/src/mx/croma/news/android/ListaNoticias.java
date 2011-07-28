@@ -33,6 +33,7 @@ public class ListaNoticias extends ListActivity {
 	private ProgressDialog progressDialog;
 	private ProgressThread progressThread;
 	public int progress = 0;
+
 	@Override
 	public void onCreate(Bundle savedInstance) {
 		super.onCreate(savedInstance);
@@ -40,15 +41,21 @@ public class ListaNoticias extends ListActivity {
 		_feedUrl = getResources().getString(R.string.feed_prensa);
 		showDialog(PROGRESS_DIALOG);
 		lv = (ListView) findViewById(android.R.id.list);
-		CromaFeedHandler cfh = new CromaFeedHandler();
-		SAXParserFactory spf = SAXParserFactory.newInstance();
+		String categoria = getIntent().getStringExtra("__categoria__");
 		try {
-			progress = 10;
-			SAXParser sp = spf.newSAXParser();
-			progress = 20;
-			sp.parse(_feedUrl, cfh);
-			progress = 60;
-			lv.setAdapter(new CromaNewsAdapter(cfh.getNoticias(), this));
+			if (CromaFeedHandler.cacheNoticias == null) {
+				CromaFeedHandler cfh = new CromaFeedHandler();
+				SAXParserFactory spf = SAXParserFactory.newInstance();
+				progress = 10;
+				SAXParser sp = spf.newSAXParser();
+				progress = 20;
+				sp.parse(_feedUrl, cfh);
+				progress = 60;
+				lv.setAdapter(new CromaNewsAdapter(categoria, cfh.getNoticias(), this));
+			} else {
+				lv.setAdapter(new CromaNewsAdapter(categoria, 
+						CromaFeedHandler.cacheNoticias, this));
+			}
 			progress = 80;
 			lv.setOnItemClickListener(new ListaListener());
 			progress = 100;

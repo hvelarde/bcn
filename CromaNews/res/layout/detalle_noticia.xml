@@ -16,7 +16,7 @@
 				android:maxWidth="100dp" android:maxHeight="100dp"
 				android:layout_gravity="center_horizontal"></ImageView>
 			<TextView android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:id="@+id/txtDetalle"
+				android:layout_height="fill_parent" android:id="@+id/txtDetalle"
 				android:text="Detalle noticia"></TextView>
 			<Button android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:id="@+id/btnCompleto"

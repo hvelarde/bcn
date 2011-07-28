@@ -8,19 +8,23 @@ import org.xml.sax.helpers.DefaultHandler;
 public class CromaFeedHandler extends DefaultHandler {
 
 	private ArrayList<Noticia> _noticias;
+	public static ArrayList<Noticia> cacheNoticias;
 	private Noticia _actual;
 	private String chars;
 	private boolean onItem;
 
 	private static final String TAG_ITEM = "entry", TAG_TITLE = "title",
-			TAG_LINK = "link", TAG_DESCRIPTION = "summary",
-			TAG_DATE = "updated";
+			TAG_LINK = "link", TAG_DESCRIPTION = "content",
+			TAG_DATE = "updated", TAG_CATEGORIA = "category";
 
 	public CromaFeedHandler() {
 		super();
 	}
 
 	public ArrayList<Noticia> getNoticias() {
+		if(cacheNoticias == null){
+			cacheNoticias = _noticias;
+		}
 		return _noticias;
 	}
 
@@ -50,6 +54,9 @@ public class CromaFeedHandler extends DefaultHandler {
 			if("enclosure".equals(attributes.getValue("rel"))){
 				_actual.setImgUrl(attributes.getValue("href"));
 			}
+		} else if(ln.endsWith(TAG_CATEGORIA)){
+			if(attributes != null && _actual != null)
+				_actual.setCategoria(attributes.getValue("term"));
 		}
 	}
 

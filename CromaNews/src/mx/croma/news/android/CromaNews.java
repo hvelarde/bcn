@@ -1,3 +1,4 @@
+
 package mx.croma.news.android;
 
 import android.app.Activity;
@@ -49,28 +50,28 @@ public class CromaNews extends TabActivity {
 				.newTabSpec("conferencia")
 				.setIndicator("Conferencias",
 						res.getDrawable(R.drawable.ic_conferencias))
-				.setContent(intent);
+				.setContent(intent.putExtra("__categoria__", "Video Conferencias"));
 		tabHost.addTab(spec);
-
+		intent = new Intent().setClass(this, ListaNoticias.class);
 		//intent = new Intent().setClass(this, NotasActivity.class);
 		spec = tabHost
 				.newTabSpec("notas")
 				.setIndicator("Notas", res.getDrawable(R.drawable.ic_notas))
-				.setContent(intent);
+				.setContent(intent.putExtra("__categoria__", "Notas de Prensa"));
 		tabHost.addTab(spec);
-		
+		intent = new Intent().setClass(this, ListaNoticias.class);
 		//intent = new Intent().setClass(this, ConferenciasActivity.class);
 		spec = tabHost
-				.newTabSpec("conferencia")
-				.setIndicator("Conferencias", res.getDrawable(R.drawable.ic_conferencias))
+				.newTabSpec("Favoritos")
+				.setIndicator("Favoritos", res.getDrawable(R.drawable.ic_reciente))
 				.setContent(intent);
 		tabHost.addTab(spec);
-		
+		intent = new Intent().setClass(this, ListaNoticias.class);
 		//intent = new Intent().setClass(this, RecienteActivity.class);
 		spec = tabHost
-				.newTabSpec("reciente")
-				.setIndicator("Lo mas reciente", res.getDrawable(R.drawable.ic_reciente))
-				.setContent(intent);
+				.newTabSpec("publicaciones")
+				.setIndicator("Documentos", res.getDrawable(R.drawable.ic_publicaciones))
+				.setContent(intent.putExtra("__categoria__", "Documentos"));
 		tabHost.addTab(spec);
 
 		tabHost.setCurrentTab(0);

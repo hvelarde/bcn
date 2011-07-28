@@ -12,6 +12,18 @@ public class Noticia implements Serializable{
 	private String _imgUrl;
 	private String _fecha;
 	private String _link;
+	private String _categoria;
+	
+	public String getCategoria() {
+		return _categoria;
+	}
+
+
+	public void setCategoria(String _categoria) {
+		this._categoria = _categoria;
+	}
+
+
 	public Noticia(){
 		
 	}
