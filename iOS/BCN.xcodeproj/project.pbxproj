@@ -195,7 +195,6 @@
 		CA12821013EC90F20065ADFE = {
 			isa = PBXGroup;
 			children = (
-				CA21C0E913F19BAD00C65E22 /* CoreText.framework */,
 				CA12822513EC90F30065ADFE /* BCN */,
 				CA12821E13EC90F20065ADFE /* Frameworks */,
 				CA12821C13EC90F20065ADFE /* Products */,
@@ -213,6 +212,7 @@
 		CA12821E13EC90F20065ADFE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CA21C0E913F19BAD00C65E22 /* CoreText.framework */,
 				CA12821F13EC90F20065ADFE /* UIKit.framework */,
 				CA12822113EC90F20065ADFE /* Foundation.framework */,
 				CA12822313EC90F30065ADFE /* CoreGraphics.framework */,
@@ -554,6 +554,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				SDKROOT = iphoneos;
+				a = "";
 			};
 			name = Debug;
 		};
@@ -569,6 +570,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
+				a = "";
 			};
 			name = Release;
 		};
@@ -600,6 +602,37 @@
 			};
 			name = Release;
 		};
+		CAD0A27413F1C3B900630AAC /* AdHoc Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Cromasoft, S.A. de C.V.";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B4C92C9A-6689-4917-8352-7547264E970C";
+				SDKROOT = iphoneos;
+				a = "";
+			};
+			name = "AdHoc Distribution";
+		};
+		CAD0A27513F1C3B900630AAC /* AdHoc Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BCN/BCN-Prefix.pch";
+				INFOPLIST_FILE = "BCN/BCN-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = "AdHoc Distribution";
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -608,6 +641,7 @@
 			buildConfigurations = (
 				CA12823413EC90F30065ADFE /* Debug */,
 				CA12823513EC90F30065ADFE /* Release */,
+				CAD0A27413F1C3B900630AAC /* AdHoc Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -617,6 +651,7 @@
 			buildConfigurations = (
 				CA12823713EC90F30065ADFE /* Debug */,
 				CA12823813EC90F30065ADFE /* Release */,
+				CAD0A27513F1C3B900630AAC /* AdHoc Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
