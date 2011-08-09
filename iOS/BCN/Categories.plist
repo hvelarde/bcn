@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>key</key>
+		<string>Notas de Prensa</string>
+		<key>label</key>
+		<string>Notas de Prensa</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>Documentos</string>
+		<key>label</key>
+		<string>Documentos</string>
+	</dict>
+	<dict>
+		<key>key</key>
+		<string>Video Conferencias</string>
+		<key>label</key>
+		<string>Video Conferencias</string>
+	</dict>
+</array>
+</plist>
