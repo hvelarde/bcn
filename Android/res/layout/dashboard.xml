@@ -15,31 +15,31 @@
 		android:layout_below="@id/lay_action" android:paddingTop="6dp"
 		android:layout_centerInParent="true">
 
-		<ImageButton android:id="@+id/button1"
+		<ImageButton android:id="@+id/btnIndicadores"
 			android:layout_width="145dp" android:src="@drawable/bt_indicadores"
-			android:layout_height="95dp" android:text="button1"
+			android:layout_height="95dp" 
 			android:layout_margin="5dip" />
 
-		<ImageButton android:id="@+id/button2" android:layout_width="145dp"
-			android:layout_height="95dp" android:layout_toRightOf="@id/button1"
+		<ImageButton android:id="@+id/btnPublicaciones" android:layout_width="145dp"
+			android:layout_height="95dp" android:layout_toRightOf="@id/btnIndicadores"
 			android:src="@drawable/bt_publicaciones" android:layout_margin="5dip" />
 
-		<ImageButton android:id="@+id/button3" android:layout_width="145dp"
-			android:layout_height="95dp" android:layout_below="@id/button1"
+		<ImageButton android:id="@+id/btnNotas" android:layout_width="145dp"
+			android:layout_height="95dp" android:layout_below="@id/btnIndicadores"
 			android:src="@drawable/bt_notas" android:layout_margin="5dip" />
 
-		<ImageButton android:id="@+id/button4" android:layout_width="145dp"
-			android:layout_height="95dp" android:layout_toRightOf="@id/button3"
-			android:layout_below="@id/button2" android:src="@drawable/bt_conferencias"
+		<ImageButton android:id="@+id/btnConferencias" android:layout_width="145dp"
+			android:layout_height="95dp" android:layout_toRightOf="@id/btnNotas"
+			android:layout_below="@id/btnPublicaciones" android:src="@drawable/bt_conferencias"
 			android:layout_margin="5dip" />
 
-		<ImageButton android:id="@+id/button5" android:layout_width="145dp"
-			android:layout_height="95dp" android:layout_below="@id/button3"
+		<ImageButton android:id="@+id/btnReciente" android:layout_width="145dp"
+			android:layout_height="95dp" android:layout_below="@id/btnNotas"
 			android:src="@drawable/bt_reciente" android:layout_margin="5dip" />
 
-		<ImageButton android:id="@+id/button6" android:layout_width="145dp"
-			android:layout_height="95dp" android:layout_toRightOf="@id/button5"
-			android:layout_below="@id/button4" android:src="@drawable/bt_marcadores"
+		<ImageButton android:id="@+id/btnMarcadores" android:layout_width="145dp"
+			android:layout_height="95dp" android:layout_toRightOf="@id/btnReciente"
+			android:layout_below="@id/btnConferencias" android:src="@drawable/bt_marcadores"
 			android:layout_margin="5dip" />
 	</RelativeLayout>
 </RelativeLayout>
