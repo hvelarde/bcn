@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+	<ImageView android:id="@+id/imageView1" android:src="@drawable/escudo"
+		android:layout_gravity="center_horizontal" android:scaleType="fitXY"
+		android:paddingBottom="20dp" android:paddingTop="10dp" android:layout_width="138dp" android:layout_height="144dp"></ImageView>
+	<TableLayout android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:id="@+id/tableLayout1">
+		<TableRow android:id="@+id/tableRow1" android:layout_width="fill_parent"
+			android:layout_height="wrap_content">
+			<Button android:text="Indicadores Economicos" android:id="@+id/btnIndEconomicos"
+				android:layout_marginLeft="10dp" android:minHeight="100dp"
+				android:maxWidth="150dp" android:maxHeight="100dp" android:textSize="10dp"
+				android:layout_width="fill_parent" android:layout_height="wrap_content"
+				android:minWidth="150dp"></Button>
+			<Button android:text="Publicaciones" android:id="@+id/btnPublicaciones"
+				android:layout_marginRight="10dp" android:minHeight="100dp"
+				android:maxWidth="150dp" android:maxHeight="100dp" android:textSize="10dp"
+				android:layout_width="fill_parent" android:layout_height="wrap_content"
+				android:minWidth="150dp"></Button>
+		</TableRow>
+		<TableRow android:id="@+id/tableRow2" android:layout_width="fill_parent"
+			android:layout_height="wrap_content">
+			<Button android:text="Notas de Prensa" android:id="@+id/btnNotas"
+				android:layout_marginLeft="10dp" android:minHeight="100dp"
+				android:maxHeight="100dp" android:textSize="10dp"
+				android:layout_width="fill_parent" android:layout_height="wrap_content"
+				android:minWidth="150dp" android:maxWidth="150dp"></Button>
+			<Button android:text="Conferencias de Prensa" android:id="@+id/btnConferencias"
+				android:layout_marginRight="10dp" android:minHeight="100dp"
+				android:maxWidth="150dp" android:maxHeight="100dp" android:textSize="10dp"
+				android:layout_width="fill_parent" android:layout_height="wrap_content"
+				android:minWidth="150dp"></Button>
+		</TableRow>
+		<TableRow android:id="@+id/tableRow3" android:layout_width="fill_parent"
+			android:layout_height="wrap_content">
+			<Button android:text="Lo mas reciente" android:id="@+id/btnReciente"
+				android:layout_marginLeft="10dp" android:minHeight="100dp"
+				android:maxWidth="150dp" android:maxHeight="100dp" android:textSize="10dp"
+				android:layout_width="fill_parent" android:layout_height="wrap_content"
+				android:minWidth="150dp"></Button>
+			<Button android:text="Marcadores" android:id="@+id/btnMarcadores"
+				android:layout_marginRight="10dp" android:minHeight="100dp"
+				android:maxWidth="150dp" android:maxHeight="100dp" android:textSize="10dp"
+				android:layout_width="fill_parent" android:layout_height="wrap_content"
+				android:minWidth="150dp"></Button>
+		</TableRow>
+	</TableLayout>
+</LinearLayout>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent" android:weightSum="1">
+    <ImageView android:id="@+id/imageView1" android:src="@drawable/escudo" android:layout_gravity="center_horizontal" android:scaleType="fitXY" android:layout_width="171dp" android:layout_height="178dp" android:paddingBottom="20dp" android:paddingTop="10dp"></ImageView>
+    <TextView android:id="@+id/textView1" android:text="Cargando..." android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="wrap_content" android:layout_gravity="center_horizontal" android:paddingBottom="15dp"></TextView>
+    <ProgressBar android:layout_height="wrap_content" style="?android:attr/progressBarStyleHorizontal" android:layout_width="174dp" android:layout_weight="0.30" android:layout_gravity="center_horizontal" android:id="@+id/progressMain" android:indeterminate="false" android:max="100"></ProgressBar>
+    
+</LinearLayout>
