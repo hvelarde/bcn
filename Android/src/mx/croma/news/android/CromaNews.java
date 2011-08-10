@@ -6,6 +6,7 @@ import android.app.TabActivity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TabHost;
 
@@ -15,25 +16,14 @@ public class CromaNews extends TabActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-	//	findViewById(R.id.btnNoticias).setOnClickListener(
-		//			new View.OnClickListener() {
-		//
-		//		public void onClick(View arg0) {
-		//			Intent i = new Intent(getApplicationContext(),
-		//					ListaNoticias.class);
-		//			i.putExtra("_feed_",
-		//					getResources().getString(R.string.feed_prensa));
-		//			startActivity(i);
-		//			finish();
-		//		}
-		//	});
+	
 		Resources res = getResources(); // Resource object to get Drawables
 		TabHost tabHost = getTabHost();
 		TabHost.TabSpec spec; // Resusable TabSpec for each tab
 		Intent intent; // Reusable Intent for each tab
 
 		// Create an Intent to launch an Activity for the tab (to be reused)
-		intent = new Intent().setClass(this, ListaNoticias.class);
+		intent = new Intent().setClass(this, IndicadoresEconomicos.class);
 
 		// Initialize a TabSpec for each tab and add it to the TabHost
 		spec = tabHost
@@ -43,7 +33,8 @@ public class CromaNews extends TabActivity {
 				.setContent(intent);
 		
 		tabHost.addTab(spec);
-
+		
+		intent = new Intent().setClass(this, ListaNoticias.class);
 		// Do the same for the other tabs
 		//intent = new Intent().setClass(this, ConferenciasActivity.class);
 		spec = tabHost
@@ -73,7 +64,7 @@ public class CromaNews extends TabActivity {
 				.setIndicator("Documentos", res.getDrawable(R.drawable.ic_publicaciones))
 				.setContent(intent.putExtra("__categoria__", "Documentos"));
 		tabHost.addTab(spec);
-
-		tabHost.setCurrentTab(0);
+		Log.d("BCN","index"+getIntent().getExtras().getInt("index"));
+		tabHost.setCurrentTab(getIntent().getExtras().getInt("index"));
 	}
 }

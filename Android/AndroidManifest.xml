@@ -4,15 +4,20 @@
 	<uses-sdk android:minSdkVersion="4" />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<application android:icon="@drawable/bnclogo" android:label="@string/app_name" android:theme="@android:style/Theme.Light.NoTitleBar">
-		<activity android:name=".CromaNews" android:label="@string/app_name">
+		<activity android:name=".Dashboard" android:label="@string/app_name">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
 
+		<activity android:name=".IndicadoresEconomicos"></activity>
+		<activity android:name=".CromaNews"></activity>
 		<activity android:name=".ListaNoticias"></activity>
 		<activity android:name=".DetalleNoticia"></activity>
+		<activity android:theme="@android:style/Theme.Black" android:name=".graphics.AChartEngineSampleActivity"/>
+		<activity android:theme="@android:style/Theme.Black" android:name=".graphics.BarChartSample"/>
+		
 	</application>
 
 

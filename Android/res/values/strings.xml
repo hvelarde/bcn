@@ -5,4 +5,8 @@
     <string name="url_feed">http://bcn.guegue.info/atom</string>
     <string name="feed_warp">http://bcn.guegue.info/atom</string>
     <string name="feed_prensa">http://bcn.guegue.info/atom</string>
+    <string name="indicador">Indicador</string>
+    <string name="valor">Valor</string>
+    <string name="fecha">Fecha</string>
+    <color name="orange">#ff9900</color>
 </resources>
