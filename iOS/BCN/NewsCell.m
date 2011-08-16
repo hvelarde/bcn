@@ -13,21 +13,24 @@
 
 @synthesize newsView;
 
-#pragma mark Table Cell methods
+#pragma mark - Creation
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
-    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
++(id)createWithCellType:(NSInteger)cellType reuseIdentifier:(NSString *)reuseIdentifier {
+    return [[[NewsCell alloc] initWithCellType:cellType reuseIdentifier:reuseIdentifier] autorelease];
+}
+
+- (id)initWithCellType:(NSInteger)cellType reuseIdentifier:(NSString *)reuseIdentifier {
+    if ((self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier]) != nil) {
         // Initialization code
 		CGRect tzvFrame = CGRectMake(0.0, 0.0, self.contentView.bounds.size.width, self.contentView.bounds.size.height);
-		NSLog(@"W: %f, h: %f", tzvFrame.size.width, tzvFrame.size.height);
-		self.newsView = [[[NewsView alloc] initWithFrame:tzvFrame] autorelease];
-		newsView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+		self.newsView = [NewsView createWithFrame:tzvFrame cellType:cellType];		
 		[self.contentView addSubview:newsView];
 		self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     return self;
 }
 
+#pragma mark - Table Cell methods
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
 

@@ -11,8 +11,6 @@
 #import "Entry.h"
 #import "Feed.h"
 #import "CommonConstants.h"
-#import "GalleryItem.h"
-#import "Video.h"
 
 #pragma mark - Private Methods Declaration
 @interface FeedReader ()
@@ -24,6 +22,7 @@
 -(void)loadData;
 -(NSDate*)dateFromZulu:(NSString*)str;
 -(void)stopIndicator;
+-(void)sendNotification;
 
 @end
 
@@ -40,7 +39,6 @@
 @synthesize sorters;
 @synthesize triggerTimer;
 @synthesize feedAttributes;
-@synthesize galleryItem;
 
 #pragma mark Initializations
 
@@ -178,12 +176,10 @@
 	if ((updateDate != nil) &&
         ((model.feed == nil) ||
          ([updateDate compare:model.feed.lastUpdate] == NSOrderedDescending))) {
-		[entries sortUsingDescriptors:sorters];
-		[model updateFromEntries:entries updated:updateDate  withAttributes:feedAttributes];
-		[[NSNotificationCenter defaultCenter] postNotificationName:MODEL_UPDATED_NOTIFICATION
-															object:self];
-		[model saveToFile];
-		NSLog(@"The model has been updated");
+            [entries sortUsingDescriptors:sorters];
+            [model updateFromEntries:entries updated:updateDate  withAttributes:feedAttributes];
+            [model saveToFile];
+            [self performSelectorOnMainThread:@selector(sendNotification) withObject:nil waitUntilDone:YES];
 	}
 	self.entries = nil;
 	model.lastCheck = [NSDate date];
@@ -192,6 +188,12 @@
                            withObject:nil
                         waitUntilDone:NO];
 	working = NO;
+}
+
+-(void)sendNotification {
+    [[NSNotificationCenter defaultCenter] postNotificationName:MODEL_UPDATED_NOTIFICATION
+                                                        object:self];
+    NSLog(@"The model has been updated");
 }
 
 -(NSDate*)dateFromZulu:(NSString*)str {
@@ -243,23 +245,28 @@
 			return;
 		}
 		NSString* rel =[attributeDict objectForKey:TAG_REL];
+        NSString* type = [attributeDict objectForKey:TAG_TYPE];
+        NSString* href = [attributeDict objectForKey:TAG_HREF];
 		if ([rel isEqualToString:REL_ENCLOSURE]) {
-			NSString* type = [attributeDict objectForKey:TAG_TYPE];
-			if (![type hasPrefix:TYPE_IMAGE]) {
-				self.tmpValue = nil;
-				return;
-			}
-			// TODO Validate image length
-			NSString* href = [attributeDict objectForKey:TAG_HREF];
-			NSString* tmp = [href stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-			[entry setValue:tmp forKey:ENTRY_ICON];
-			[entry defineImageFromLink:tmp];
+			if ([type hasPrefix:TYPE_IMAGE]) {
+                NSString* tmp = [href stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                [entry setValue:tmp forKey:ENTRY_ICON];
+                [entry defineImageFromLink:tmp];
+			} else if ([type hasSuffix:TYPE_PDF]) {
+                [entry setValue:[href stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:CONTENT];
+                [entry setValue:WEB_PAGE forKey:CONTENT_TYPE];
+            }
+        } else if ([rel isEqualToString:REL_ALTERNATE]) {
+            if ([type hasSuffix:TYPE_PDF]) {
+                [entry setValue:[href stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:CONTENT];
+                [entry setValue:WEB_PAGE forKey:CONTENT_TYPE];
+            } else if ([type hasPrefix:TYPE_VIDEO]) {
+                [entry setValue:[href stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:VIDEO];
+            }
 		} else {
 			// Para BCN aqui es donde esta el link al contenido
-			NSString* href = [attributeDict objectForKey:TAG_HREF];
 			[entry setValue:[href stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:CONTENT];
 			[entry setValue:WEB_PAGE forKey:CONTENT_TYPE];
-			return;
 		}
 	} else if ([elementName isEqualToString:TAG_MEDIA_CONTENT]) {
 		if (!inEntry) {
@@ -269,9 +276,7 @@
 		NSString* medium = [attributeDict objectForKey:TAG_MEDIUM];
 		NSString* urlString = [attributeDict objectForKey:TAG_URL];
 		if ([medium isEqualToString:MEDIUM_VIDEO]) {
-			Video* video = [Video createWithUrlString:[urlString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-			[entry addVideoToGallery:video];
-			self.galleryItem = video;
+            [entry setValue:[urlString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:VIDEO];
 			inGalleryItem = YES;
 		}
 	}
@@ -285,7 +290,6 @@
 		self.entry = nil;
 	} else if ([elementName isEqualToString:TAG_MEDIA_CONTENT]) {
 		inGalleryItem = NO;
-		self.galleryItem = nil;
 	} else if ([elementName isEqualToString:TAG_UPDATED]) {
 		NSDate* date = [self dateFromZulu:tmpValue];
 //		NSDateFormatter* df = [[NSDateFormatter alloc] init];
@@ -307,11 +311,15 @@
 		if (inEntry) {
 			[entry setValue:tmpValue forKey:ENTRY_SUMMARY];
 		}
+	} else if ([elementName isEqualToString:TAG_SUMMARY]) {
+		if (inEntry) {
+			[entry setValue:tmpValue forKey:ENTRY_CONTENT_INFO];
+		}
 	} else if ([elementName isEqualToString:TAG_MEDIA_TITLE]) {
 		if (!inGalleryItem) {
 			//[parser abortParsing]; // We accept the element but we do nothing with it
 		} else {
-			galleryItem.title = tmpValue;
+			// galleryItem.title = tmpValue;
 		}
 	}
 	self.tmpValue = nil;

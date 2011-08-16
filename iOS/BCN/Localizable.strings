@@ -20,9 +20,88 @@
  * Etiquetas de botones y encabezados
  */
 
-/* Boton de inicio */
-"Inicio" = "Inicio";
-
 /* Titulo de la pagina de notas */
 "titulo_notas" = "Notas de Prensa";
+
+/* Titulo de la pagina de videos */
+"titulo_videos" = "Conferencias de Prensa";
+
+/* Titulo de la pagina de recientes */
+"titulo_recientes" = "Lo más reciente";
+
+/* Titulo de la pagina listado de publicaciones */
+"publicaciones" = "Publicaciones";
+
+
+/* Titulo  Publicaciones Mensuales */
+"titulo_mensual" = "Publicaciones Mensuales";
+
+/* Informe Monterio Financiero */
+"etiqueta_informemonetario" = "Informe Monterio Financiero";
+
+/* Inflación */
+"etiqueta_inflacion" = "Inflación";
+
+/* Imae */
+"etiqueta_imae" = "Imae";
+
+/* Indice de Precios de Materiales de Construccion */
+"etiqueta_pconstruccion" = "Indice de Precios de Materiales de Construccion";
+
+/* Fiscal */
+"etiqueta_fiscal" = "Fiscal";
+
+/* Sector Externo */
+"etiqueta_sectorexterno" = "Sector Externo";
+
+/* Titulo  Publicaciones Trimestrales  */
+"titulo_trimestral" = "Publicaciones Trimestrales";
+
+/* Boletin Económico */
+"etiqueta_boletineconomico" = "Boletin Económico";
+
+/* Boletin Financiero */
+"etiqueta_boletinfinanciero" = "Boletin Financiero";
+
+/* Finanzas Públicas */
+"etiqueta_finanzasublicas" = "Finanzas Públicas";
+
+/* Construccion Privada */
+"etiqueta_construccionprivada" = "Construccion Privada";
+
+/* Deuda Pública */
+"etiqueta_deudapublica" = "Deuda Pública";
+
+/* Deuda Externa privada */
+"etiqueta_deudaexterna" = "Deuda Externa privada";
+
+/* Cuentas nacionales trimestrales */
+"etiqueta_cuentasnacionales" = "Cuentas nacionales trimestrales";
+
+/* Balanza de pagos */
+"etiqueta_balanzapagos" = "Balanza de pagos";
+
+/* Titulo  Publicaciones Anuales  */
+"titulo_anual" = "Publicaciones Anuales";
+
+/* Informe Anual */
+"etiqueta_informeanual" = "Informe Anual";
+
+/* Deuda Anual */
+"etiqueta_deudaanual" = "Deuda Anual";
+
+/* Titulo  Publicaciones Eventuales  */
+"titulo_eventual" = "Publicaciones Eventuales";
+
+/* Metodologias */
+"etiqueta_metodologias" = "Metodologias";
+
+/* Investigaciones */
+"etiqueta_investigaciones" = "Investigaciones";
+
+/* Informes Especiales */
+"etiqueta_informesespeciales" = "Informes Especiales";
+
+/* Acuerdos Internacionales */
+"etiqueta_acuerdosinternacionales" = "Acuerdos Internacionales";
 

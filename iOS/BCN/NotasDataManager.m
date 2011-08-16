@@ -51,7 +51,6 @@
 {
     NSInteger row = indexPath.row;
     if (row == 0) {
-        // TODO Get a Title Cell
         TitleCell* cell = (TitleCell*)[tv dequeueReusableCellWithIdentifier:TITLE_CELL_IDENTIFIER];
         if (cell == nil) {
             cell = [TitleCell create];
@@ -80,6 +79,7 @@
     Entry* entry = [model entry:(row - 1) inPage:PAGINA_NOTAS];
     UIViewController *detailViewController = [NotaViewController createWithEntry:entry];
     [navigationController pushViewController:detailViewController animated:YES];
+    [tv deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 @end

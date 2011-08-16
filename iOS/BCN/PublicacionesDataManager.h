@@ -7,10 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "DataManager.h"
 
 @interface PublicacionesDataManager : DataManager {
-    
+    NSInteger pagina;
+    NSString* tituloLista;
+    @private
+    NSArray* publicaciones;
 }
+
+@property NSInteger pagina;
+@property (nonatomic, retain) NSString* tituloLista;
+@property (nonatomic, retain) NSArray* publicaciones;
 
 @end

@@ -13,4 +13,8 @@
     
 }
 
++(id)create;
+
+-(void)defineContent:(NSString*)content;
+
 @end

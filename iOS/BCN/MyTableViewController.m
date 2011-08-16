@@ -13,6 +13,7 @@
 
 @synthesize tableView;
 @synthesize dataManager;
+@synthesize backButton;
 
 +(id)createWithDataManager:(DataManager*)dataManager {
     return [[[MyTableViewController alloc] initWithDataManager:dataManager] autorelease];
@@ -31,6 +32,7 @@
 - (void)dealloc
 {
     [tableView release];
+    [backButton release];
     [dataManager release];
     [super dealloc];
 }
@@ -48,18 +50,22 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    if ([dataManager hideBackButton]) {
+        backButton.enabled = NO;
+        backButton.hidden = YES;
+    }
     dataManager.tableView = tableView;
     dataManager.navigationController = self.navigationController;
     tableView.dataSource = dataManager;
     tableView.delegate = dataManager;
     [dataManager updateData];
+    [dataManager enableAutomaticUpdate];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    [dataManager disableAutomaticUpdate];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

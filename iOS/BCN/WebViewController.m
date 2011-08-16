@@ -27,13 +27,11 @@
 @synthesize activityIndicator;
 
 #pragma mark - Creation
-+(id)createWithPage:(NSString*)page {
-    return [[[WebViewController alloc] initWithPage:page] autorelease];
-}
 
--(id)initWithPage:(NSString*)page {
-    self = [super initWithNibName:@"WebViewController" bundle:nil];
+-(id)initWithNibName:(NSString*)nibName page:(NSString*)page {
+    self = [super initWithNibName:nibName bundle:nil];
     if (self) {
+        NSLog(@"Pagina de Web: %@", page);
         self.pagina = page;
     }
     return self;

@@ -7,10 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
+@class Entry;
 
-@interface VideoViewController : UIViewController {
-    
+@interface VideoViewController : BaseViewController {
+    UIView* display;
+    @private
+    NSString* video;
 }
+
+@property (nonatomic, retain) NSString* video;
+@property (nonatomic, retain) UIView* display;
+
++(id)createWithEntry:(Entry*)entry;
+-(id)initWithEntry:(Entry*)entry;
 
 @end

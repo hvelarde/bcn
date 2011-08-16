@@ -26,6 +26,12 @@
     [super dealloc];
 }
 
+#pragma mark - Control flags
+
+-(BOOL)hideBackButton {
+    return YES;
+}
+
 #pragma mark - Data access
 
 // In general MUST be overriden by specific implementations

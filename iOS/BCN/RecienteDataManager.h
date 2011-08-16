@@ -7,10 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "DataManager.h"
 
 @interface RecienteDataManager : DataManager {
-    
+    @private
+    NSArray* notas;
+    NSArray* publicaciones;
+    NSArray* conferencias;
 }
+
+@property (nonatomic, retain) NSArray* notas;
+@property (nonatomic, retain) NSArray* publicaciones;
+@property (nonatomic, retain) NSArray* conferencias;
 
 @end

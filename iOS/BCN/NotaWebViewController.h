@@ -7,10 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "WebViewController.h"
 
 @interface NotaWebViewController : WebViewController {
     
 }
+
++(id)createWithPage:(NSString*)page;
+-(id)initWithPage:(NSString*)page;
 
 @end

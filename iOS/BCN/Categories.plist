@@ -20,5 +20,125 @@
 		<key>label</key>
 		<string>Video Conferencias</string>
 	</dict>
+    <dict>
+        <key>key</key>
+        <string>informemonetario</string>
+        <key>label</key>
+        <string>Informe Monterio Financiero</string>
+    </dict>
+    <dict>
+        <key>key</key>
+        <string>inflacion</string>
+        <key>label</key>
+        <string>Inflación</string>
+    </dict>
+    <dict>
+        <key>key</key>
+        <string>imae</string>
+        <key>label</key>
+        <string>Imae</string>
+    </dict>
+    <dict>
+        <key>key</key>
+        <string>pconstruccion</string>
+        <key>label</key>
+        <string>Indice de Precios de Materiales de Construccion</string>
+    </dict>
+    <dict>
+        <key>key</key>
+        <string>fiscal</string>
+        <key>label</key>
+        <string>Fiscal</string>
+    </dict>
+    <dict>
+        <key>key</key>
+        <string>sectorexterno</string>
+        <key>label</key>
+        <string>Sector Externo</string>
+    </dict>
+    <dict>
+        <key>key</key>
+        <string>boletineconomico</string>
+        <key>label</key>
+        <string>Boletin Económico</string>
+    </dict>
+    <dict>
+        <key>key</key>
+        <string>boletinfinanciero</string>
+        <key>label</key>
+        <string>Boletin Financiero</string>
+    </dict>
+    <dict>
+        <key>key</key>
+        <string>finanzasublicas</string>
+        <key>label</key>
+        <string>Finanzas Públicas</string>
+    </dict>
+    <dict>
+        <key>key</key>
+        <string>construccionprivada</string>
+        <key>label</key>
+        <string>Construccion Privada</string>
+    </dict>
+    <dict>
+        <key>key</key>
+        <string>deudapublica</string>
+        <key>label</key>
+        <string>Deuda Pública</string>
+    </dict>
+    <dict>
+        <key>key</key>
+        <string>deudaexterna</string>
+        <key>label</key>
+        <string>Deuda Externa privada</string>
+    </dict>
+    <dict>
+        <key>key</key>
+        <string>cuentasnacionales</string>
+        <key>label</key>
+        <string>Cuentas nacionales trimestrales</string>
+    </dict>
+    <dict>
+        <key>key</key>
+        <string>balanzapagos</string>
+        <key>label</key>
+        <string>Balanza de pagos</string>
+    </dict>
+    <dict>
+        <key>key</key>
+        <string>informeanual</string>
+        <key>label</key>
+        <string>Informe Anual</string>
+    </dict>
+    <dict>
+        <key>key</key>
+        <string>deudaanual</string>
+        <key>label</key>
+        <string>Deuda Anual</string>
+    </dict>
+    <dict>
+        <key>key</key>
+        <string>metodologias</string>
+        <key>label</key>
+        <string>Metodologias</string>
+    </dict>
+    <dict>
+        <key>key</key>
+        <string>investigaciones</string>
+        <key>label</key>
+        <string>Investigaciones</string>
+    </dict>
+    <dict>
+        <key>key</key>
+        <string>informesespeciales</string>
+        <key>label</key>
+        <string>Informes Especiales</string>
+    </dict>
+    <dict>
+        <key>key</key>
+        <string>acuerdosinternacionales</string>
+        <key>label</key>
+        <string>Acuerdos Internacionales</string>
+    </dict>
 </array>
 </plist>

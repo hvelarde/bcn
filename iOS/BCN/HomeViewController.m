@@ -9,6 +9,9 @@
 #import "HomeViewController.h"
 #import "NotasDataManager.h"
 #import "MyTableViewController.h"
+#import "ListadoPublicaciones.h"
+#import "ConferenciasDataManager.h"
+#import "RecienteDataManager.h"
 
 @implementation HomeViewController
 
@@ -77,12 +80,15 @@
 }
 
 -(IBAction)publicacionesSelected:(id)sender {
-    // TODO Activar pantalla de publicaciones
-    NSLog(@"publicacionesSelected");
+    DataManager* dataManager = [[ListadoPublicaciones alloc] init];
+    dataManager.model = model;
+    MyTableViewController* mvc = [MyTableViewController createWithDataManager:dataManager];
+    [dataManager release];
+    [self.navigationController pushViewController:mvc animated:YES];
 }
 
 -(IBAction)notasSelected:(id)sender {
-    NotasDataManager* dataManager = [[NotasDataManager alloc] init];
+    DataManager* dataManager = [[NotasDataManager alloc] init];
     dataManager.model = model;
     MyTableViewController* mvc = [MyTableViewController createWithDataManager:dataManager];
     [dataManager release];
@@ -90,13 +96,19 @@
 }
 
 -(IBAction)conferenciasSelected:(id)sender {
-    // TODO Activar pantalla de conferencias
-    NSLog(@"conferenciasSelected");
+    DataManager* dataManager = [[ConferenciasDataManager alloc] init];
+    dataManager.model = model;
+    MyTableViewController* mvc = [MyTableViewController createWithDataManager:dataManager];
+    [dataManager release];
+    [self.navigationController pushViewController:mvc animated:YES];
 }
 
 -(IBAction)recienteSelected:(id)sender {
-    // TODO Activar pantalla de recientes
-    NSLog(@"recienteSelected");
+    DataManager* dataManager = [[RecienteDataManager alloc] init];
+    dataManager.model = model;
+    MyTableViewController* mvc = [MyTableViewController createWithDataManager:dataManager];
+    [dataManager release];
+    [self.navigationController pushViewController:mvc animated:YES];
 }
 
 -(IBAction)marcadoresSelected:(id)sender {

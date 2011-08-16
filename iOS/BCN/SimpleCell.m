@@ -7,15 +7,21 @@
 //
 
 #import "SimpleCell.h"
-
+#import "CommonConstants.h"
 
 @implementation SimpleCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+#pragma mark - Creation
+
++(id)create {
+    return [[[SimpleCell alloc] init] autorelease];
+}
+
+- (id)init {
+    self = [super initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:SIMPLE_CELL_IDENTIFIER];
     if (self) {
-        // Initialization code
+        // TODO Check if it must be modified
+        self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     return self;
 }
@@ -30,6 +36,11 @@
 - (void)dealloc
 {
     [super dealloc];
+}
+
+#pragma mark - Content Management
+-(void)defineContent:(NSString*)content {
+    self.textLabel.text = content;
 }
 
 @end

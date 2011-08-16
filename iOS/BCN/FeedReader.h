@@ -10,7 +10,6 @@
 
 @class Model;
 @class Entry;
-@class GalleryItem;
 
 @interface FeedReader : NSObject <NSXMLParserDelegate>{
 	@private
@@ -24,7 +23,6 @@
 	NSArray* sorters;
 	NSTimer* triggerTimer;
 	NSMutableDictionary* feedAttributes;
-	GalleryItem* galleryItem;
 	BOOL inGalleryItem;
     BOOL started;
 	BOOL working;
@@ -39,7 +37,6 @@
 @property (nonatomic, retain) NSArray* sorters;
 @property (nonatomic, retain) NSTimer* triggerTimer;
 @property (nonatomic, retain) NSMutableDictionary* feedAttributes;
-@property (nonatomic, retain) GalleryItem* galleryItem;
 
 +(id)createWithModel:(Model*)model;
 -(id)initWithModel:(Model*)model;

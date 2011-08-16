@@ -264,18 +264,18 @@ static CGFloat paragraphSpacing = 10.0f;
 	// Siguientes columnas
 	if ((startIndex < endIndex) && (width2 > 0)) {
 		CGMutablePathRef path2 = CGPathCreateMutable();
-		CGRect area = CGRectMake(0, 0, width2, height);
+        area = CGRectMake(0, 0, width2, height);
 		CGPathAddRect(path2, NULL, area);
 		while (startIndex < endIndex) {
 			// Cada una de las columnas
-			CGContextRef context = CGBitmapContextCreate(NULL, width2, height, 8, 4 * width2,
+            context = CGBitmapContextCreate(NULL, width2, height, 8, 4 * width2,
 														 colorSpace, kCGImageAlphaPremultipliedFirst);
-			CTFrameRef frm = CTFramesetterCreateFrame(framesetter, CFRangeMake(startIndex, 0), path2, NULL);
+            frm = CTFramesetterCreateFrame(framesetter, CFRangeMake(startIndex, 0), path2, NULL);
 			CTFrameDraw(frm, context);
-			CFRange frameRange = CTFrameGetVisibleStringRange(frm);
+            frameRange = CTFrameGetVisibleStringRange(frm);
 			startIndex += frameRange.length;
 			CFRelease(frm);
-			CGImageRef cgImage = CGBitmapContextCreateImage(context);
+            cgImage = CGBitmapContextCreateImage(context);
 			CGContextRelease(context);
 			[resp addObject:[UIImage imageWithCGImage:cgImage]];
 			CFRelease(cgImage);

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "DataManager.h"
 
 @interface ListadoPublicaciones : DataManager {
     

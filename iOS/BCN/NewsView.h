@@ -12,8 +12,13 @@
 
 @interface NewsView : UIView {
 	Entry* entry;
+    @private
 	NSDateFormatter* dateFormatter;
+    NSInteger newsCellType;
 }
+
++(id)createWithFrame:(CGRect)frame cellType:(NSInteger)cellType;
+-(id)initWithFrame:(CGRect)frame cellType:(NSInteger)cellType;
 
 @property (nonatomic, retain) Entry* entry;
 @property (nonatomic, retain) NSDateFormatter* dateFormatter;

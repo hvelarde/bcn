@@ -11,12 +11,10 @@
 
 #define	ATTRIBUTES		@"attributes"
 #define PAGES			@"pages"
-#define PHOTO_GALLERY	@"photoGallery"
-#define VIDEO_GALLERY	@"videoGallery"
 
 @implementation Entry
 
-@synthesize pagesWhereItAppears, attributes, image, imageURLString, photoGallery, videoGallery;
+@synthesize pagesWhereItAppears, attributes, image, imageURLString;
 
 #pragma mark Creation
 
@@ -78,47 +76,15 @@
 }
 
 #pragma mark -
-#pragma mark Photo Gallery
-
--(void)addPhotoToGallery:(Photo*)photo {
-	if (photoGallery == nil) {
-		self.photoGallery = [NSMutableArray arrayWithCapacity:5];
-	}
-	[photoGallery addObject:photo];
-}
-
--(BOOL)hasPhotoGallery {
-	return (photoGallery != nil) && ([photoGallery count] > 0);
-}
-
-#pragma mark -
-#pragma mark Video Gallery
-
--(void)addVideoToGallery:(Video*)video {
-	if (videoGallery == nil) {
-		self.videoGallery = [NSMutableArray arrayWithCapacity:5];
-	}
-	[videoGallery addObject:video];
-}
-
--(BOOL)hasVideoGallery {
-	return (videoGallery != nil) && ([videoGallery count] > 0);
-}
-
-#pragma mark -
 #pragma mark Save/Restore
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
 	if ([encoder allowsKeyedCoding]) {
 		[encoder encodeObject:attributes forKey:ATTRIBUTES];
 		[encoder encodeObject:pagesWhereItAppears forKey:PAGES];
-		[encoder encodeObject:photoGallery forKey:PHOTO_GALLERY];
-		[encoder encodeObject:videoGallery forKey:VIDEO_GALLERY];
 	} else {
 		[encoder encodeObject:attributes];
 		[encoder encodeObject:pagesWhereItAppears];
-		[encoder encodeObject:photoGallery];
-		[encoder encodeObject:videoGallery];
 	}	
 	// The rest of the data is volatile.
 }
@@ -127,13 +93,9 @@
 	if ([decoder allowsKeyedCoding]) {
 		self.attributes = [decoder decodeObjectForKey:ATTRIBUTES];
 		self.pagesWhereItAppears = [decoder decodeObjectForKey:PAGES];
-		self.photoGallery = [decoder decodeObjectForKey:PHOTO_GALLERY];
-		self.videoGallery = [decoder decodeObjectForKey:VIDEO_GALLERY];
 	} else {
 		self.attributes = [decoder decodeObject];
 		self.pagesWhereItAppears = [decoder decodeObject];
-		self.photoGallery = [decoder decodeObject];
-		self.videoGallery = [decoder decodeObject];
 	}
 	[self setVolatileFieldsToInitialValue];
 	return self;
@@ -155,8 +117,6 @@
 #pragma mark general
 
 -(void)dealloc {
-	[videoGallery release];
-	[photoGallery release];
 	[imageURLString release];
 	[image release];
 	[attributes release];

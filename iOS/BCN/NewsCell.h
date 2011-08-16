@@ -14,7 +14,11 @@
 @interface NewsCell : UITableViewCell {
 	NewsView* newsView;
 }
+
 @property (nonatomic, retain) NewsView* newsView;
+
++(id)createWithCellType:(NSInteger)cellType reuseIdentifier:(NSString *)reuseIdentifier;
+- (id)initWithCellType:(NSInteger)cellType reuseIdentifier:(NSString *)reuseIdentifier;
 
 -(void)setEntry:(Entry*)entry;
 

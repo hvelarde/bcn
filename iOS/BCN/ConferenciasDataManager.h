@@ -7,10 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "DataManager.h"
 
 @interface ConferenciasDataManager : DataManager {
-    
+    @private
+    NSArray* conferencias;
 }
+
+@property (nonatomic, retain) NSArray* conferencias;
 
 @end

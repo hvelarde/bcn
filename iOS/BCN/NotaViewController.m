@@ -10,10 +10,13 @@
 #import "Entry.h"
 #import "Formateo.h"
 #import "CommonConstants.h"
-#import "WebViewController.h"
+#import "NotaWebViewController.h"
 
 #define BUTTONS_HEIGHT  50
 #define MARGIN          10
+#define MIN_FONT_SIZE   8
+#define MAX_FONT_SIZE   24
+#define DELTA_FONT_SIZE 2
 
 #pragma mark - Private interface
 
@@ -98,16 +101,28 @@
 }
 
 -(IBAction)increaseFontSelected:(id)sender {
-    NSLog(@"Increase Font");
+    fontSize += DELTA_FONT_SIZE;
+    decreaseFontItem.enabled = YES;
+    if (fontSize >= MAX_FONT_SIZE) {
+        increaseFontItem.enabled = NO;
+    }
+    [self buildContent];
+    [scrollView setNeedsDisplay];
 }
 
 -(IBAction)decreaseFontSelected:(id)sender {
-    NSLog(@"Decrease Font");
+    fontSize -= DELTA_FONT_SIZE;
+    increaseFontItem.enabled = YES;
+    if (fontSize <= MIN_FONT_SIZE) {
+        decreaseFontItem.enabled = NO;
+    }
+    [self buildContent];
+    [scrollView setNeedsDisplay];
 }
 
 -(void)pdfSelected:(id)sender {
     NSString* pagina = [entry valueForKey:CONTENT];
-    WebViewController* wvc = [WebViewController createWithPage:pagina];
+    NotaWebViewController* wvc = [NotaWebViewController createWithPage:pagina];
     [self.navigationController pushViewController:wvc animated:YES];
 }
 
@@ -141,6 +156,7 @@
     UIImageView* imageView = [[UIImageView alloc] initWithImage:imagenTexto];
     imageView.frame = CGRectMake(MARGIN, MARGIN, textWidth, imagenTexto.size.height);
     [scrollView addSubview:imageView];
+    [imageView release];
     NSInteger pos = imagenTexto.size.height + 2 * MARGIN;
     if ((pos + BUTTONS_HEIGHT) < frm.size.height) {
         pos = frm.size.height - BUTTONS_HEIGHT;
@@ -161,7 +177,8 @@
     [conferenciaButton setImage:buttonImage forState:UIControlStateNormal];
     NSInteger buttonWidth = buttonImage.size.width;
     conferenciaButton.frame = CGRectMake(frm.size.width - MARGIN - buttonWidth, pos, buttonWidth, buttonImage.size.height);
-    conferenciaButton.enabled = NO; // TODO Ver cuando se activa
+    NSString* video = [entry valueForKey:VIDEO];
+    conferenciaButton.enabled = (video != nil);
     [scrollView addSubview:conferenciaButton];
     scrollView.contentSize = CGSizeMake(frm.size.width, pos + BUTTONS_HEIGHT);
 }

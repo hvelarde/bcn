@@ -25,5 +25,6 @@
 -(void)updateData;
 -(void)enableAutomaticUpdate;
 -(void)disableAutomaticUpdate;
+-(BOOL)hideBackButton;
 
 @end

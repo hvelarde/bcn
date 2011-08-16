@@ -20,7 +20,7 @@
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView* activityIndicator;
 @property (nonatomic, retain) NSString* pagina;
 
-+(id)createWithPage:(NSString*)page;
--(id)initWithPage:(NSString*)page;
+-(id)initWithNibName:(NSString*)nibName page:(NSString*)page;
+
 
 @end

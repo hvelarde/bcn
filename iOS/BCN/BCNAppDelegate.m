@@ -102,12 +102,6 @@
 
 -(void)activaHome {
     HomeViewController* hvc = [HomeViewController createWithModel:model];
-    UIBarButtonItem* button = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Inicio", @"Boton de inicio")
-                                                               style:UIBarButtonItemStyleDone
-                                                              target:self
-                                                              action:@selector(homeButtonPushed:)];
-    hvc.navigationItem.rightBarButtonItem = button;
-    [button release];
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:hvc];
     _window.rootViewController = navigationController;
 }

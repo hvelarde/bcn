@@ -7,21 +7,33 @@
 //
 
 #import "VideoViewController.h"
-
+#import "CommonConstants.h"
+#import "Entry.h"
 
 @implementation VideoViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+@synthesize display;
+@synthesize video;
+
+#pragma mark - Creation
+
++(id)createWithEntry:(Entry*)entry {
+    return [[[VideoViewController alloc] initWithEntry:entry] autorelease];
+}
+
+-(id)initWithEntry:(Entry*)entry {
+    self = [super initWithNibName:@"VideoViewController" bundle:nil];
     if (self) {
-        // Custom initialization
+        self.video = [entry valueForKey:VIDEO];
     }
     return self;
 }
 
-- (void)dealloc
-{
+#pragma mark - Memory Management
+
+- (void)dealloc {
+    [video release];
+    [display release];
     [super dealloc];
 }
 
