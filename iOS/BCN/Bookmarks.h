@@ -1,5 +1,5 @@
 //
-//  BookMarks.h
+//  Bookmarks.h
 //  BCN
 //
 //  Created by Claudio Horvilleur on 8/19/11.
@@ -7,10 +7,22 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DataStorage.h"
 
+@class Entry;
 
-@interface BookMarks : DataStorage {
-    
+@interface Bookmarks : DataStorage <NSCoding> {
+    @private
+    NSMutableArray* entries;
 }
+
+@property (nonatomic, retain) NSMutableArray* entries;
+
++(id)createFromFile;
+
+-(void)prepareForQueries;
+-(BOOL)addEntry:(Entry*)entry;
+-(BOOL)removeEntry:(Entry*)entry;
+-(void)saveToFile;
 
 @end

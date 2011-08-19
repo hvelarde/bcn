@@ -12,15 +12,12 @@
 
 @implementation DataManager
 
-@synthesize model;
 @synthesize tableView;
 @synthesize navigationController;
 
 #pragma mark - Memory management
 
 -(void)dealloc {
-    [self disableAutomaticUpdate];
-    [model release];
     [tableView release];
     [navigationController release];
     [super dealloc];
@@ -39,29 +36,8 @@
     [tableView reloadData];
 }
 
--(void)enableAutomaticUpdate {
-    if (notificationsEnabled) {
-        return;
-    }
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(dataUpdated:)
-                                                 name:MODEL_UPDATED_NOTIFICATION
-                                               object:nil];
-    notificationsEnabled = YES;
-}
-
--(void)disableAutomaticUpdate {
-    if (!notificationsEnabled) {
-        return;
-    }
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                 name:MODEL_UPDATED_NOTIFICATION
-                                               object:nil];
-    notificationsEnabled = NO;
-}
-
--(void)dataUpdated:(NSNotification*)notification {
-    [self updateData];
+-(void)viewLoaded:(MyTableViewController*)controller {
+    // To be overriden when the data manager has specific things to do after the view is loaded.
 }
 
 #pragma mark - DataSource

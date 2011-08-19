@@ -30,6 +30,7 @@
 #define	TAG_LENGTH			@"length"
 #define	TAG_HREF			@"href"
 #define TAG_SUMMARY         @"summary"
+#define TAG_ID              @"id"
 
 #define TAG_MEDIA_CONTENT	@"media:content"
 #define	TAG_MEDIA_TITLE		@"media:title"

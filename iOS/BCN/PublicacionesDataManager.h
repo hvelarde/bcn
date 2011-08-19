@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DataManager.h"
+#import "ModelDataManager.h"
 
-@interface PublicacionesDataManager : DataManager {
+@interface PublicacionesDataManager : ModelDataManager {
     NSInteger pagina;
     NSString* tituloLista;
     @private

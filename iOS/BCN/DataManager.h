@@ -9,22 +9,18 @@
 #import <Foundation/Foundation.h>
 
 @class Model;
+@class MyTableViewController;
 
 @interface DataManager : NSObject <UITableViewDataSource, UITableViewDelegate> {
-    Model* model;
     UITableView* tableView;
     UINavigationController* navigationController;
-    @private
-    BOOL notificationsEnabled;
 }
 
-@property (nonatomic, retain) Model* model;
 @property (nonatomic, retain) UITableView* tableView;
 @property (nonatomic, retain) UINavigationController* navigationController;
 
 -(void)updateData;
--(void)enableAutomaticUpdate;
--(void)disableAutomaticUpdate;
 -(BOOL)hideBackButton;
+-(void)viewLoaded:(MyTableViewController*)controller;
 
 @end

@@ -311,6 +311,10 @@
 		if (inEntry) {
 			[entry setValue:tmpValue forKey:ENTRY_SUMMARY];
 		}
+	} else if ([elementName isEqualToString:TAG_ID]) {
+		if (inEntry) {
+			entry.entryId = tmpValue;
+		}
 	} else if ([elementName isEqualToString:TAG_SUMMARY]) {
 		if (inEntry) {
 			[entry setValue:tmpValue forKey:ENTRY_CONTENT_INFO];

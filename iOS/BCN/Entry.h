@@ -15,11 +15,14 @@
 	NSMutableSet* pagesWhereItAppears;
 	UIImage* image;
 	NSString* imageURLString;
+    NSString* entryId;
 }
+
 @property (nonatomic, retain) NSMutableDictionary* attributes;
 @property (nonatomic, retain) NSMutableSet* pagesWhereItAppears;
 @property (nonatomic, retain) UIImage* image;
 @property (nonatomic, retain) NSString* imageURLString;
+@property (nonatomic, retain) NSString* entryId;
 
 +(Entry*)entry;
 

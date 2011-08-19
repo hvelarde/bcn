@@ -11,10 +11,11 @@
 
 #define	ATTRIBUTES		@"attributes"
 #define PAGES			@"pages"
+#define ENTRY_ID        @"entryId"
 
 @implementation Entry
 
-@synthesize pagesWhereItAppears, attributes, image, imageURLString;
+@synthesize pagesWhereItAppears, attributes, image, imageURLString, entryId;
 
 #pragma mark Creation
 
@@ -82,9 +83,11 @@
 	if ([encoder allowsKeyedCoding]) {
 		[encoder encodeObject:attributes forKey:ATTRIBUTES];
 		[encoder encodeObject:pagesWhereItAppears forKey:PAGES];
+        [encoder encodeObject:entryId forKey:ENTRY_ID];
 	} else {
 		[encoder encodeObject:attributes];
 		[encoder encodeObject:pagesWhereItAppears];
+        [encoder encodeObject:entryId];
 	}	
 	// The rest of the data is volatile.
 }
@@ -93,9 +96,11 @@
 	if ([decoder allowsKeyedCoding]) {
 		self.attributes = [decoder decodeObjectForKey:ATTRIBUTES];
 		self.pagesWhereItAppears = [decoder decodeObjectForKey:PAGES];
+        self.entryId = [decoder decodeObjectForKey:ENTRY_ID];
 	} else {
 		self.attributes = [decoder decodeObject];
 		self.pagesWhereItAppears = [decoder decodeObject];
+        self.entryId = [decoder decodeObject];
 	}
 	[self setVolatileFieldsToInitialValue];
 	return self;
@@ -113,15 +118,35 @@
     return NSCopyObject(self, 0, zone);
 }
 
-#pragma mark -
-#pragma mark general
+#pragma mark - Memory Management
 
 -(void)dealloc {
 	[imageURLString release];
 	[image release];
 	[attributes release];
 	[pagesWhereItAppears release];
+    [entryId release];
 	[super dealloc];
+}
+
+#pragma mark - Compares only by EntryId
+
+-(BOOL)isEqual:(id)anObject {
+    if (![anObject isKindOfClass:[Entry class]]) {
+        return NO;
+    }
+    Entry* other = anObject;
+    if (entryId == nil) {
+        return other.entryId == nil;
+    }
+    return [entryId isEqual:other.entryId];
+}
+
+-(NSUInteger)hash {
+    if (entryId == nil) {
+        return 0;
+    }
+    return [entryId hash];
 }
 
 @end

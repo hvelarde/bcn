@@ -21,10 +21,11 @@
     return [[[VideoViewController alloc] initWithEntry:entry] autorelease];
 }
 
--(id)initWithEntry:(Entry*)entry {
+-(id)initWithEntry:(Entry*)e {
     self = [super initWithNibName:@"VideoViewController" bundle:nil];
     if (self) {
-        self.video = [entry valueForKey:VIDEO];
+        self.entry = e;
+        self.video = [e valueForKey:VIDEO];
     }
     return self;
 }

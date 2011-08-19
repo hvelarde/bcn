@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DataManager.h"
+#import "ModelDataManager.h"
 
-@interface ListadoPublicaciones : DataManager {
+@interface ListadoPublicaciones : ModelDataManager {
     
 }
 

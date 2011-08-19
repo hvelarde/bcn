@@ -16,11 +16,9 @@
     UIBarButtonItem* decreaseFontItem;
     UIScrollView* scrollView;
     @private
-    Entry* entry;
     float fontSize;
 }
 
-@property (nonatomic, retain) Entry* entry;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem* increaseFontItem;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem* decreaseFontItem;
 @property (nonatomic, retain) IBOutlet UIScrollView* scrollView;
@@ -28,8 +26,6 @@
 +(id)createWithEntry:(Entry*)entry;
 -(id)initWithEntry:(Entry*)entry;
 
--(IBAction)bookmarkSelected:(id)sender;
--(IBAction)forwardSelected:(id)sender;
 -(IBAction)increaseFontSelected:(id)sender;
 -(IBAction)decreaseFontSelected:(id)sender;
 

@@ -12,8 +12,6 @@
 
 @implementation PublicacionWebViewController
 
-@synthesize entry;
-
 #pragma mark - Creation
 
 +(id)createWithEntry:(Entry*)entry {
@@ -32,18 +30,7 @@
 #pragma mark - Memory Management
 
 -(void)dealloc {
-    [entry release];
     [super dealloc];
-}
-
-#pragma mark - Actions
-
--(IBAction)bookmarkSelected:(id)sender {
-    NSLog(@"bookmark");
-}
-
--(IBAction)forwardSelected:(id)sender {
-    NSLog(@"Forward");
 }
 
 @end

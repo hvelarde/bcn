@@ -13,27 +13,23 @@
 #import "CommonConstants.h"
 
 #define ARCHIVE_FILE	@"Feed.archive"
-#define CATEGORIES_CFG	@"Categories"
 #define LAST_CHECK		@"lastCheck"
 #define	FEED			@"feed"
 
 @interface Model()
 
--(void)loadCategoriesInfo;
--(NSString *)applicationDocumentsDirectory;
 -(void)buildFromFeed;
 
 @end
 
 @implementation Model
 
-@synthesize lastCheck, pages, feed, categories, writableDBPath;
+@synthesize lastCheck, feed;
 
 #pragma mark Initializations
 
 +(Model*)createFromFile {
-	NSString* baseDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-	NSString *archivePath = [baseDir stringByAppendingPathComponent:ARCHIVE_FILE];
+	NSString *archivePath = [[DataStorage applicationDocumentsDirectory] stringByAppendingPathComponent:ARCHIVE_FILE];
 	Model* res = [NSKeyedUnarchiver unarchiveObjectWithFile:archivePath];
 	if (res == nil) {
 		res = [[[Model alloc] init] autorelease];
@@ -52,67 +48,15 @@
 		self.pages = nil;
 		return;
 	}
-	int len = [categories count];
-	NSMutableArray* newPages = [NSMutableArray arrayWithCapacity:len];
-	for (int i = 0; i < len; i++) {
-		NSDictionary* category = (NSDictionary*)[categories objectAtIndex:i];
-		NSString* pageName = [category valueForKey:CAT_KEY] ;	
-		NSMutableArray* entries = [NSMutableArray array];
-		[newPages addObject:entries];
-		NSEnumerator* enumerator = [feed.entries objectEnumerator];
-		Entry* entry;
-		while ((entry = [enumerator nextObject]) != nil) {
-			if (![entry appearsInPage:pageName]) {
-				continue;
-			}
-			[entries addObject:entry];
-		}
-		NSLog(@"Page %@ ended up with %d entries", pageName, [entries count]);
-	}
-	self.pages = newPages;
+    [self buildPagesFromEntries:feed.entries];
 }
 
--(void)updateFromEntries:(NSArray*)entries updated:(NSDate*)update withAttributes:(NSDictionary*)attributes {
+-(void)updateFromEntries:(NSArray*)entries
+                 updated:(NSDate*)update
+          withAttributes:(NSDictionary*)attributes {
 	NSLog(@"We received %d entries", [entries count]);
 	self.feed = [Feed initFromEntries:entries updated:update withAttributes:attributes];	
 	[self buildFromFeed];
-}
-
-#pragma mark -
-#pragma mark Categories info
-
--(void)loadCategoriesInfo {
-	NSString *defaultDBPath = [[NSBundle mainBundle]  pathForResource:CATEGORIES_CFG ofType:@"plist"];
-	self.categories = [NSArray arrayWithContentsOfFile:defaultDBPath];
-}
-
-#pragma mark -
-#pragma mark Queries to model info.
-
--(NSArray*)entriesInPage:(NSInteger)pageNumber {
-	if (pageNumber >= [pages count]) {
-		return nil;
-	}
-	return (NSArray*)[pages objectAtIndex:pageNumber];
-}
-
--(NSInteger)numberOfEntriesInPage:(NSInteger)pageNumber {
-	NSArray* entries = [self entriesInPage:pageNumber];
-	if (entries == nil) {
-		return 0;
-	}
-	return [entries count];
-}
-
--(Entry*)entry:(NSInteger)entryNumber inPage:(NSInteger)pageNumber {
-	NSArray* entries = [self entriesInPage:pageNumber];
-	if (entries == nil) {
-		return nil;
-	}
-	if (entryNumber >= [entries count]) {
-		return nil;
-	}
-	return [entries objectAtIndex:entryNumber];
 }
 
 #pragma mark -
@@ -140,7 +84,7 @@
 }
 
 -(void)saveToFile {
-	NSString *archivePath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent:ARCHIVE_FILE];
+	NSString *archivePath = [[DataStorage applicationDocumentsDirectory] stringByAppendingPathComponent:ARCHIVE_FILE];
 	NSLog(archivePath, nil);
 	BOOL res = [NSKeyedArchiver archiveRootObject:self
 										   toFile:archivePath];
@@ -151,19 +95,10 @@
 	}
 }
 
--(NSString *)applicationDocumentsDirectory {
-	return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                                NSUserDomainMask,
-                                                YES) lastObject];
-}
-
 #pragma mark -
 #pragma mark General Methods
 
 - (void)dealloc {
-	[writableDBPath release];
-	[categories release];
-	[pages release];
 	[feed release];
 	[lastCheck release];
     [super dealloc];

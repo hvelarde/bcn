@@ -101,6 +101,7 @@
     dataManager.model = model;
     dataManager.pagina = [self categoryPageForSection:section row:row];
     dataManager.tituloLista = [self labelForSection:section row:row];
+    [dataManager enableAutomaticUpdate];
     MyTableViewController* mvc = [MyTableViewController createWithDataManager:dataManager];
     [dataManager release];
     [navigationController pushViewController:mvc animated:YES];

@@ -14,6 +14,7 @@
 @synthesize tableView;
 @synthesize dataManager;
 @synthesize backButton;
+@synthesize headerView;
 
 +(id)createWithDataManager:(DataManager*)dataManager {
     return [[[MyTableViewController alloc] initWithDataManager:dataManager] autorelease];
@@ -29,11 +30,11 @@
 }
 
 #pragma mark - Memory management
-- (void)dealloc
-{
+- (void)dealloc {
     [tableView release];
     [backButton release];
     [dataManager release];
+    [headerView release];
     [super dealloc];
 }
 
@@ -58,14 +59,13 @@
     dataManager.navigationController = self.navigationController;
     tableView.dataSource = dataManager;
     tableView.delegate = dataManager;
+    [dataManager viewLoaded:self];
     [dataManager updateData];
-    [dataManager enableAutomaticUpdate];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    [dataManager disableAutomaticUpdate];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

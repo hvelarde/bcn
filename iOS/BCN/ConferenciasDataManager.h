@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DataManager.h"
+#import "ModelDataManager.h"
 
-@interface ConferenciasDataManager : DataManager {
+@interface ConferenciasDataManager : ModelDataManager {
     @private
     NSArray* conferencias;
 }

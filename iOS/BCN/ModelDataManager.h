@@ -7,10 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "DataManager.h"
 
 @interface ModelDataManager : DataManager {
-    
+    Model* model;
+    @private
+    BOOL notificationsEnabled;
 }
+
+@property (nonatomic, retain) Model* model;
+
+-(void)enableAutomaticUpdate;
+-(void)disableAutomaticUpdate;
 
 @end

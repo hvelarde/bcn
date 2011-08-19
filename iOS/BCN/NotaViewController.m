@@ -31,7 +31,6 @@
 #pragma mark - Implementation
 @implementation NotaViewController
 
-@synthesize entry;
 @synthesize increaseFontItem;
 @synthesize decreaseFontItem;
 @synthesize scrollView;
@@ -54,7 +53,6 @@
 #pragma mark - Memory Management
 
 - (void)dealloc {
-    [entry release];
     [increaseFontItem release];
     [decreaseFontItem release];
     [scrollView release];
@@ -91,14 +89,6 @@
 }
 
 #pragma mark - Actions
-
--(IBAction)bookmarkSelected:(id)sender {
-    NSLog(@"bookmark");
-}
-
--(IBAction)forwardSelected:(id)sender {
-    NSLog(@"Forward");
-}
 
 -(IBAction)increaseFontSelected:(id)sender {
     fontSize += DELTA_FONT_SIZE;

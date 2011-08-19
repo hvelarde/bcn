@@ -29,9 +29,11 @@
 /* Titulo de la pagina de recientes */
 "titulo_recientes" = "Lo más reciente";
 
+/* Titulo de la pagina de marcadores */
+"titulo_marcadores" = "Marcadores";
+
 /* Titulo de la pagina listado de publicaciones */
 "publicaciones" = "Publicaciones";
-
 
 /* Titulo  Publicaciones Mensuales */
 "titulo_mensual" = "Publicaciones Mensuales";
@@ -105,3 +107,24 @@
 /* Acuerdos Internacionales */
 "etiqueta_acuerdosinternacionales" = "Acuerdos Internacionales";
 
+/*
+ * Mensajes para los bookmarks
+ */
+
+/* Mensaje de agregar noticia */
+"agregar_noticia" = "¿Desea agregar esta noticia a sus marcadores?";
+
+/* Boton de Cancelar */
+"boton_cancelar" = "Cancelar";
+
+/* Boton de Aceptar */
+"boton_aceptar" = "Aceptar";
+
+/* Mensaje de noticia agregada */
+"noticia_agregada" = "La noticia fue agregada a sus marcadores";
+
+/* Mensaje de noticia no agregada */
+"noticia_no_agregada" = "La noticia ya existía en sus marcadores";
+
+/* Error por querer guardar una noticia que no se tiene */
+"ERROR_NO_ENTRY" = "No se tiene informacion de una noticia";

@@ -20,4 +20,5 @@
 @property (nonatomic, retain) NSDictionary* attributes;
 
 +(id)initFromEntries:(NSArray*)entries updated:(NSDate*)update withAttributes:(NSDictionary*)attributes;
+
 @end

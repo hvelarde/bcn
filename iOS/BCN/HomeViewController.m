@@ -12,6 +12,7 @@
 #import "ListadoPublicaciones.h"
 #import "ConferenciasDataManager.h"
 #import "RecienteDataManager.h"
+#import "MarcadoresDataManager.h"
 
 @implementation HomeViewController
 
@@ -80,7 +81,7 @@
 }
 
 -(IBAction)publicacionesSelected:(id)sender {
-    DataManager* dataManager = [[ListadoPublicaciones alloc] init];
+    ListadoPublicaciones* dataManager = [[ListadoPublicaciones alloc] init];
     dataManager.model = model;
     MyTableViewController* mvc = [MyTableViewController createWithDataManager:dataManager];
     [dataManager release];
@@ -88,32 +89,37 @@
 }
 
 -(IBAction)notasSelected:(id)sender {
-    DataManager* dataManager = [[NotasDataManager alloc] init];
+    NotasDataManager* dataManager = [[NotasDataManager alloc] init];
     dataManager.model = model;
+    [dataManager enableAutomaticUpdate];
     MyTableViewController* mvc = [MyTableViewController createWithDataManager:dataManager];
     [dataManager release];
     [self.navigationController pushViewController:mvc animated:YES];
 }
 
 -(IBAction)conferenciasSelected:(id)sender {
-    DataManager* dataManager = [[ConferenciasDataManager alloc] init];
+    ConferenciasDataManager* dataManager = [[ConferenciasDataManager alloc] init];
     dataManager.model = model;
+    [dataManager enableAutomaticUpdate];
     MyTableViewController* mvc = [MyTableViewController createWithDataManager:dataManager];
     [dataManager release];
     [self.navigationController pushViewController:mvc animated:YES];
 }
 
 -(IBAction)recienteSelected:(id)sender {
-    DataManager* dataManager = [[RecienteDataManager alloc] init];
+    RecienteDataManager* dataManager = [[RecienteDataManager alloc] init];
     dataManager.model = model;
+    [dataManager enableAutomaticUpdate];
     MyTableViewController* mvc = [MyTableViewController createWithDataManager:dataManager];
     [dataManager release];
     [self.navigationController pushViewController:mvc animated:YES];
 }
 
 -(IBAction)marcadoresSelected:(id)sender {
-    // TODO Activar pantalla de marcadores
-    NSLog(@"marcadoresSelected");
+    MarcadoresDataManager* dataManager = [[MarcadoresDataManager alloc] init];
+    MyTableViewController* mvc = [MyTableViewController createWithDataManager:dataManager];
+    [dataManager release];
+    [self.navigationController pushViewController:mvc animated:YES];
 }
 
 @end

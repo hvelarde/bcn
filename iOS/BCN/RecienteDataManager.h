@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DataManager.h"
+#import "ModelDataManager.h"
 
-@interface RecienteDataManager : DataManager {
+@interface RecienteDataManager : ModelDataManager {
     @private
     NSArray* notas;
     NSArray* publicaciones;

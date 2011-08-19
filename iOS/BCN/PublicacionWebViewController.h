@@ -12,16 +12,9 @@
 @class Entry;
 
 @interface PublicacionWebViewController : WebViewController {
-    @private
-    Entry* entry;
 }
-
-@property (nonatomic, retain) Entry* entry;
 
 +(id)createWithEntry:(Entry*)entry;
 -(id)initWithEntry:(Entry*)entry;
-
--(IBAction)bookmarkSelected:(id)sender;
--(IBAction)forwardSelected:(id)sender;
 
 @end
