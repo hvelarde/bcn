@@ -16,6 +16,8 @@
 	UIImage* image;
 	NSString* imageURLString;
     NSString* entryId;
+    BOOL imageIsLoading;
+    UIView* newsView;
 }
 
 @property (nonatomic, retain) NSMutableDictionary* attributes;
@@ -23,6 +25,8 @@
 @property (nonatomic, retain) UIImage* image;
 @property (nonatomic, retain) NSString* imageURLString;
 @property (nonatomic, retain) NSString* entryId;
+@property (nonatomic, retain) UIView* newsView;
+@property BOOL imageIsLoading;
 
 +(Entry*)entry;
 
@@ -32,8 +36,8 @@
 -(id)valueForKey:(NSString*)key;
 -(void)setValue:(NSObject*)value forKey:(NSString*)key;
 -(void)defineImageFromLink:(NSString*)imageLink ;
--(UIImage*)activeImage;
 -(BOOL)needImageLoading;
 -(BOOL)hasImage;
+-(void)storeLoadedImage:(UIImage*)loadedImage;
 
 @end

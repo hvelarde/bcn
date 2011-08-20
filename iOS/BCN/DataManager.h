@@ -22,5 +22,6 @@
 -(void)updateData;
 -(BOOL)hideBackButton;
 -(void)viewLoaded:(MyTableViewController*)controller;
+-(void)viewAppeared;
 
 @end

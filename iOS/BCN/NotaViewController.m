@@ -133,11 +133,9 @@
     NSMutableAttributedString* contenido = [formateo preparaBuffer];
     NSString* linea;
     linea = [entry valueForKey:ENTRY_TITLE];
-    NSLog(@"Titulo: '%@'", linea);
     [formateo agregaParrafoBold:linea
                          buffer:contenido];
     linea = [entry valueForKey:ENTRY_SUMMARY];
-    NSLog(@"Resumen: '%@'", linea);
     [formateo agregaParrafo:linea
                      buffer:contenido];
     [formateo finalizaBuffer:contenido];

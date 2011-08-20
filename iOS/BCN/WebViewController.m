@@ -31,7 +31,6 @@
 -(id)initWithNibName:(NSString*)nibName page:(NSString*)page {
     self = [super initWithNibName:nibName bundle:nil];
     if (self) {
-        NSLog(@"Pagina de Web: %@", page);
         self.pagina = page;
     }
     return self;

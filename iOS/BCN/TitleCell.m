@@ -24,7 +24,6 @@
 - (id)init {
     self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TITLE_CELL_IDENTIFIER];
     if (self) {
-		NSLog(@"W: %f, h: %f", self.contentView.bounds.size.width, self.contentView.bounds.size.height);
         titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 5.0, 320.0, 34.0)];
         titleLabel.font = [UIFont systemFontOfSize:24.0];
         titleLabel.textAlignment = UITextAlignmentCenter;

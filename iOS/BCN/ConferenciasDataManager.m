@@ -41,10 +41,8 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (conferencias == nil) {
-        NSLog(@"No hay modelo");
         return 1;
     }
-    NSLog(@"El modelo tiene %d conferencias", [conferencias count]);
     return 1 + [conferencias count];
 }
 

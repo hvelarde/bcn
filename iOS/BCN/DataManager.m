@@ -40,6 +40,10 @@
     // To be overriden when the data manager has specific things to do after the view is loaded.
 }
 
+-(void)viewAppeared {
+    // To be overriden when the data manager has specific things to do after the view appeared.
+}
+
 #pragma mark - DataSource
 
 // The next two methods MUST BE OVERRIDEN!!!!

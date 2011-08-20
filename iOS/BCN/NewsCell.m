@@ -8,6 +8,7 @@
 
 #import "NewsCell.h"
 #import "NewsView.h"
+#import "Entry.h"
 
 @implementation NewsCell
 
@@ -37,6 +38,10 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+-(void)prepareForReuse {
+    newsView.entry.newsView = nil;
 }
 
 #pragma mark -

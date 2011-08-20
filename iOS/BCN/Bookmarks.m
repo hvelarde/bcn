@@ -22,11 +22,9 @@
 	NSString *archivePath = [[DataStorage applicationDocumentsDirectory] stringByAppendingPathComponent:ARCHIVE_FILE];
 	Bookmarks* res = [NSKeyedUnarchiver unarchiveObjectWithFile:archivePath];
 	if (res == nil) {
-        NSLog(@"Creado porque no se pudo leer");
 		res = [[[Bookmarks alloc] init] autorelease];
         res.entries = [NSMutableArray arrayWithCapacity:1];
 	}
-    NSLog(@"Tenemos %d marcadores.", [res.entries count]);
 	return res;
 }
 
@@ -41,9 +39,7 @@
     if ([entries containsObject:entry]) {
         return NO;
     }
-    NSLog(@"Vamos a insertar %@", entry.entryId);
     [entries insertObject:entry atIndex:0];
-    NSLog(@"Tenemos %d marcadores.", [entries count]);
     [self saveToFile];
     return YES;
 }

@@ -67,6 +67,8 @@
 		CA1282A613ECBB730065ADFE /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = CA1282A413ECBB730065ADFE /* Entitlements.plist */; };
 		CA1282A913ECBC1C0065ADFE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CA1282A813ECBC1C0065ADFE /* Localizable.strings */; };
 		CA1282AD13ECC57B0065ADFE /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CA1282AC13ECC57B0065ADFE /* Settings.bundle */; };
+		CA18F14E13FF2F1A00E2BD34 /* IconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = CA18F14D13FF2F1A00E2BD34 /* IconDownloader.m */; };
+		CA18F15213FF2F3A00E2BD34 /* ImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = CA18F15113FF2F3A00E2BD34 /* ImageDownloader.m */; };
 		CA1CA91413F061B200ED8B15 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = CA1CA91313F061B100ED8B15 /* Utils.m */; };
 		CA1CA91A13F07A5500ED8B15 /* TitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CA1CA91913F07A5500ED8B15 /* TitleCell.m */; };
 		CA1CA91D13F07CF000ED8B15 /* NoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CA1CA91C13F07CF000ED8B15 /* NoteCell.m */; };
@@ -183,6 +185,11 @@
 		CA1282A413ECBB730065ADFE /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		CA1282A813ECBC1C0065ADFE /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		CA1282AC13ECC57B0065ADFE /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		CA18F14C13FF2F1A00E2BD34 /* IconDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconDownloader.h; sourceTree = "<group>"; };
+		CA18F14D13FF2F1A00E2BD34 /* IconDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconDownloader.m; sourceTree = "<group>"; };
+		CA18F15013FF2F3A00E2BD34 /* ImageDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageDownloader.h; sourceTree = "<group>"; };
+		CA18F15113FF2F3A00E2BD34 /* ImageDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageDownloader.m; sourceTree = "<group>"; };
+		CA18F15413FF39C900E2BD34 /* IconDownloaderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconDownloaderDelegate.h; sourceTree = "<group>"; };
 		CA1CA91213F061B100ED8B15 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		CA1CA91313F061B100ED8B15 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
 		CA1CA91813F07A5500ED8B15 /* TitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleCell.h; sourceTree = "<group>"; };
@@ -373,6 +380,11 @@
 				CA21C0E613F1909400C65E22 /* Formateo.m */,
 				CA12828713EC964A0065ADFE /* HomeViewController.h */,
 				CA12828813EC964A0065ADFE /* HomeViewController.m */,
+				CA18F14C13FF2F1A00E2BD34 /* IconDownloader.h */,
+				CA18F14D13FF2F1A00E2BD34 /* IconDownloader.m */,
+				CA18F15413FF39C900E2BD34 /* IconDownloaderDelegate.h */,
+				CA18F15013FF2F3A00E2BD34 /* ImageDownloader.h */,
+				CA18F15113FF2F3A00E2BD34 /* ImageDownloader.m */,
 				CA00F5DB13F1DA5D006DBC7B /* ListadoPublicaciones.h */,
 				CA00F5DC13F1DA5D006DBC7B /* ListadoPublicaciones.m */,
 				CA008A4F13FF0CB10043B829 /* MarcadoresDataManager.h */,
@@ -643,6 +655,8 @@
 				CA008A4D13FEEA190043B829 /* Bookmarks.m in Sources */,
 				CA008A5113FF0CB20043B829 /* MarcadoresDataManager.m in Sources */,
 				CA008A5413FF0D800043B829 /* ModelDataManager.m in Sources */,
+				CA18F14E13FF2F1A00E2BD34 /* IconDownloader.m in Sources */,
+				CA18F15213FF2F3A00E2BD34 /* ImageDownloader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

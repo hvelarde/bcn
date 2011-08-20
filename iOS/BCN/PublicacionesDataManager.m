@@ -12,18 +12,42 @@
 #import "CommonConstants.h"
 #import "NewsCell.h"
 #import "PublicacionWebViewController.h"
+#import "IconDownloader.h"
+#import "Entry.h"
+
+#pragma mark - Private Interface
+
+@interface PublicacionesDataManager()
+
+-(void)decrementCountForDownloader:(IconDownloader*)downloader;
+
+@end
+
+#pragma mark - Implementation
 
 @implementation PublicacionesDataManager
 
 @synthesize pagina;
 @synthesize tituloLista;
 @synthesize publicaciones;
+@synthesize imageDownloadsInProgress;
+
+#pragma mark - Creation
+
+-(id)init {
+    self = [super init];
+    if (self) {
+        self.imageDownloadsInProgress = [NSMutableSet setWithCapacity:5];
+    }
+    return self;
+}
 
 #pragma mark - Memory Management
 
 -(void)dealloc {
     [tituloLista release];
     [publicaciones release];
+    [imageDownloadsInProgress release];
     [super dealloc];
 }
 
@@ -50,10 +74,8 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (publicaciones == nil) {
-        NSLog(@"No hay modelo");
         return 1;
     }
-    NSLog(@"El modelo tiene %d publicaciones", [publicaciones count]);
     return 1 + [publicaciones count];
 }
 
@@ -98,6 +120,74 @@
     UIViewController *detailViewController = [PublicacionWebViewController createWithEntry:entry];
     [navigationController pushViewController:detailViewController animated:YES];
     [tv deselectRowAtIndexPath:indexPath animated:NO];
+}
+
+#pragma mark - Icon/images Management
+
+- (void)startIconDownload:(Entry *)entry {
+    UIApplication* app = [UIApplication sharedApplication];
+    app.networkActivityIndicatorVisible = YES;
+    IconDownloader* iconDownloader = [[IconDownloader alloc] initWithEntry:entry];
+    iconDownloader.delegate = self;
+    [imageDownloadsInProgress addObject:iconDownloader];
+    [iconDownloader startDownload];
+    [iconDownloader release];   
+}
+
+// this method is used in case the user scrolled into a set of cells that don't have their app icons yet
+- (void)loadImagesForOnscreenRows {
+    NSArray *visiblePaths = [tableView indexPathsForVisibleRows];
+    for (NSIndexPath *indexPath in visiblePaths)
+    {
+        NSInteger row = indexPath.row;
+        if (row == 0) {
+            continue;
+        }
+        Entry *entry = [model entry:(row - 1) inPage:pagina];
+        if ([entry needImageLoading])
+        {
+            [self startIconDownload:entry];
+        }
+    }
+}
+
+-(void)decrementCountForDownloader:(IconDownloader*)downloader {
+    if ([imageDownloadsInProgress containsObject:downloader]) {
+        [imageDownloadsInProgress removeObject:downloader];
+        int count = [imageDownloadsInProgress count];
+        if (count == 0) {
+            UIApplication* app = [UIApplication sharedApplication];
+            app.networkActivityIndicatorVisible = NO;
+        }
+    }
+}
+
+-(void)iconDidNotLoad:(IconDownloader *)downloader {
+    [self decrementCountForDownloader:downloader];
+}
+
+-(void)iconDidLoad:(IconDownloader *)downloader {
+    [self decrementCountForDownloader:downloader];
+}
+
+#pragma mark -  Deferred image loading (UIScrollViewDelegate)
+
+// Load images for all onscreen rows when scrolling is finished
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if (!decelerate)
+    {
+        [self loadImagesForOnscreenRows];
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    [self loadImagesForOnscreenRows];
+}
+
+-(void)viewAppeared {
+    [self loadImagesForOnscreenRows];
 }
 
 @end

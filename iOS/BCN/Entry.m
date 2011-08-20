@@ -16,6 +16,8 @@
 @implementation Entry
 
 @synthesize pagesWhereItAppears, attributes, image, imageURLString, entryId;
+@synthesize imageIsLoading;
+@synthesize newsView;
 
 #pragma mark Creation
 
@@ -42,7 +44,6 @@
 #pragma mark Pages data
 
 -(void)includeInPage:(NSString*)page {
-	NSLog(@"Pagina: %@", page);
 	[pagesWhereItAppears addObject:page];
 }
 
@@ -55,7 +56,7 @@
 
 -(void)defineImageFromLink:(NSString*)imageLink {
 	self.imageURLString = imageLink;
-	NSLog(@"image string: '%@' - '%@'", imageLink, imageURLString);
+//	NSLog(@"image string: '%@' - '%@'", imageLink, imageURLString);
 }
 
 -(BOOL)hasImage {
@@ -63,17 +64,20 @@
 }
 
 -(UIImage*)activeImage {
-	if (image != nil) {
-		return image;
-	}
-	if (![self hasImage]) {
-		return nil;
-	}
-	return [UIImage imageNamed:@"light_gamers_57.png"];
+    return image;
 }
 
 -(BOOL)needImageLoading {
-	return (imageURLString != nil) && (image == nil);
+//    NSLog(@"Asking for image: %@", imageURLString);
+	return [self hasImage] && (image == nil);
+}
+
+-(void)storeLoadedImage:(UIImage*)loadedImage {
+    self.image = loadedImage;
+    self.imageIsLoading = NO;
+    if (newsView != nil) {
+        [newsView setNeedsDisplay];
+    }
 }
 
 #pragma mark -
@@ -102,6 +106,10 @@
 		self.pagesWhereItAppears = [decoder decodeObject];
         self.entryId = [decoder decodeObject];
 	}
+    NSString* icon = [self valueForKey:ENTRY_ICON];
+    if (icon != nil) {
+        [self defineImageFromLink:icon];
+    }
 	[self setVolatileFieldsToInitialValue];
 	return self;
 }

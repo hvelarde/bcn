@@ -65,8 +65,18 @@
 	CGFloat hPos = boundsX + LEFT_MARGIN;
 	CGFloat vPos = boundsY + TOP_MARGIN;
 	CGFloat textsWidth = contentRect.size.width - LEFT_MARGIN - RIGHT_MARGIN;
-	UIImage* image = [UIImage imageNamed:((newsCellType == DOCUMENT_CELL_TYPE) ?
-                                          @"document-icon.png" : @"video-icon.png")];
+	UIImage* image = nil;
+    if (newsCellType == DOCUMENT_CELL_TYPE) {
+        image = entry.image;
+        if (image == nil) {
+            image = [UIImage imageNamed:@"document-icon.png"];
+        }
+        if ([entry needImageLoading]) {
+            entry.newsView = self;
+        }
+    } else {
+        image = [UIImage imageNamed:@"video-icon.png"];
+    }
 	if (image != nil) {
 		textsWidth -= MAX_IMAGE_WIDTH;
 		CGFloat imageVPos = boundsY + (contentRect.size.height - image.size.height) / 2;

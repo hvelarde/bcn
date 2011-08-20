@@ -74,7 +74,7 @@
 -(void)startOperation {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSInteger minutes = [defaults integerForKey:@"actualizacion_periodicidad_preference"];
-    NSLog(@"Automatic feed refresh every %d minutes", minutes);
+//    NSLog(@"Automatic feed refresh every %d minutes", minutes);
     if (minutes == 0) {
         minutes = 5;
     }
@@ -193,7 +193,7 @@
 -(void)sendNotification {
     [[NSNotificationCenter defaultCenter] postNotificationName:MODEL_UPDATED_NOTIFICATION
                                                         object:self];
-    NSLog(@"The model has been updated");
+//    NSLog(@"The model has been updated");
 }
 
 -(NSDate*)dateFromZulu:(NSString*)str {

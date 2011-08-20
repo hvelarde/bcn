@@ -50,7 +50,7 @@
 			}
 			[pageEntries addObject:entry];
 		}
-		NSLog(@"Page %@ ended up with %d entries", pageName, [entries count]);
+//		NSLog(@"Page %@ ended up with %d entries", pageName, [entries count]);
 	}
 	self.pages = newPages;
 }

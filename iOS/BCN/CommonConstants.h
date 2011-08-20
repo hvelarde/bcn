@@ -102,3 +102,7 @@
 #define PAGINA_investigaciones          20
 #define PAGINA_informesespeciales       21
 #define PAGINA_acuerdosinternacionales  22
+
+#pragma mark - Maximum icon sizes
+#define kAppIconWidth       60
+#define kAppIconHeight      (DOCUMENT_CELL_HEIGHT - 10)

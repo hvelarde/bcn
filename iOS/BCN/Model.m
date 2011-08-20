@@ -44,7 +44,6 @@
  */
 -(void)buildFromFeed {
 	if ((feed == nil) || ([feed.entries count] == 0)) {
-		NSLog(@"We have no data for building the model");
 		self.pages = nil;
 		return;
 	}
@@ -54,7 +53,6 @@
 -(void)updateFromEntries:(NSArray*)entries
                  updated:(NSDate*)update
           withAttributes:(NSDictionary*)attributes {
-	NSLog(@"We received %d entries", [entries count]);
 	self.feed = [Feed initFromEntries:entries updated:update withAttributes:attributes];	
 	[self buildFromFeed];
 }
@@ -85,7 +83,6 @@
 
 -(void)saveToFile {
 	NSString *archivePath = [[DataStorage applicationDocumentsDirectory] stringByAppendingPathComponent:ARCHIVE_FILE];
-	NSLog(archivePath, nil);
 	BOOL res = [NSKeyedArchiver archiveRootObject:self
 										   toFile:archivePath];
 	if (res) {

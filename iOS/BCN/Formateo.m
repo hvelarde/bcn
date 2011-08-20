@@ -345,7 +345,7 @@ static CGFloat paragraphSpacing = 10.0f;
 #pragma mark - Memory Management
 
 - (void)dealloc {
-	NSLog(@"dealloc de: %@", NSStringFromClass([self class]));
+//	NSLog(@"dealloc de: %@", NSStringFromClass([self class]));
 	if (normalAttrs != NULL) {
 		CFRelease(normalAttrs);
 	}

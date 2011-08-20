@@ -40,10 +40,8 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (notas == nil) {
-        NSLog(@"No hay modelo");
         return 1;
     }
-    NSLog(@"El modelo tiene %d notas", [notas count]);
     return 1 + [notas count];
 }
 

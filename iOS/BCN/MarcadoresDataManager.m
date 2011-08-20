@@ -99,7 +99,7 @@
         [tableView setEditing:NO animated:YES];
         [editDoneButton setImage:[UIImage imageNamed:@"editar.png"] forState:UIControlStateNormal];
         if (numDeletes > 0) {
-            NSLog(@"Vamos a guardar");
+//            NSLog(@"Vamos a guardar");
             [bookmarks saveToFile];
         }
     }
