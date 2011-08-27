@@ -11,11 +11,11 @@ import org.xml.sax.SAXException;
 import mx.croma.news.android.core.CromaFeedHandler;
 import mx.croma.news.android.core.CromaNewsAdapter;
 import mx.croma.news.android.core.Noticia;
+import mx.croma.news.android.object.Publicacion;
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -51,10 +51,21 @@ public class ListaNoticias extends ListActivity {
 				progress = 20;
 				sp.parse(_feedUrl, cfh);
 				progress = 60;
-				lv.setAdapter(new CromaNewsAdapter(categoria, cfh.getNoticias(), this));
+				if ("Documentos".equals(categoria)) {
+					lv.setAdapter(new CromaNewsAdapter(Publicacion.class, cfh
+							.getNoticias(), this));
+				} else {
+					lv.setAdapter(new CromaNewsAdapter(categoria, cfh
+							.getNoticias(), this));
+				}
 			} else {
-				lv.setAdapter(new CromaNewsAdapter(categoria, 
-						CromaFeedHandler.cacheNoticias, this));
+				if ("Documentos".equals(categoria)) {
+					lv.setAdapter(new CromaNewsAdapter(Publicacion.class,
+							CromaFeedHandler.cacheNoticias, this));
+				} else {
+					lv.setAdapter(new CromaNewsAdapter(categoria,
+							CromaFeedHandler.cacheNoticias, this));
+				}
 			}
 			progress = 80;
 			lv.setOnItemClickListener(new ListaListener());

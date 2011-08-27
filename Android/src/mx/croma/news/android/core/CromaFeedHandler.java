@@ -2,6 +2,8 @@ package mx.croma.news.android.core;
 
 import java.util.ArrayList;
 
+import mx.croma.news.android.object.Publicacion;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
@@ -55,8 +57,22 @@ public class CromaFeedHandler extends DefaultHandler {
 				_actual.setImgUrl(attributes.getValue("href"));
 			}
 		} else if(ln.endsWith(TAG_CATEGORIA)){
-			if(attributes != null && _actual != null)
+			if(_actual instanceof Publicacion){
+				Publicacion publicacion = (Publicacion)_actual;
+				if(publicacion.getPeriodicidad() == null){
+					publicacion.setPeriodicidad(attributes.getValue("term"));
+				}else{
+					publicacion.setCategoria(attributes.getValue("term"));
+				}
+				return;
+			}
+			if(attributes != null && _actual != null){
 				_actual.setCategoria(attributes.getValue("term"));
+			}
+			if(_actual != null && "Documentos".equals(_actual.getCategoria())){
+				Publicacion publicacion = new Publicacion(_actual);
+				_actual = publicacion;
+			}
 		}
 	}
 

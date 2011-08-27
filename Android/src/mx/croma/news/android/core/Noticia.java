@@ -2,7 +2,6 @@ package mx.croma.news.android.core;
 
 import java.io.Serializable;
 
-import android.graphics.drawable.Drawable;
 
 @SuppressWarnings("serial")
 public class Noticia implements Serializable{

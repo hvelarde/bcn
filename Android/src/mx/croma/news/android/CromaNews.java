@@ -1,13 +1,11 @@
 
 package mx.croma.news.android;
 
-import android.app.Activity;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.TabHost;
 
 public class CromaNews extends TabActivity {

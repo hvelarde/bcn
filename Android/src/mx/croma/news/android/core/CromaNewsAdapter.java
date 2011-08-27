@@ -1,6 +1,10 @@
 package mx.croma.news.android.core;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import mx.croma.news.android.object.Publicacion;
+import mx.croma.news.android.object.PublicacionStorage;
 
 import android.content.Context;
 import android.view.View;
@@ -9,7 +13,7 @@ import android.widget.BaseAdapter;
 
 public class CromaNewsAdapter extends BaseAdapter {
 
-	private ArrayList<Noticia> _noticias;
+	private List<Noticia> _noticias;
 	private Context _context;
 	private String _category;
 	
@@ -18,7 +22,7 @@ public class CromaNewsAdapter extends BaseAdapter {
 		_context = ctx;
 	}
 	
-	public CromaNewsAdapter(String category, ArrayList<Noticia> noticias, Context ctx){
+	public CromaNewsAdapter(String category, List<Noticia> noticias, Context ctx){
 		_noticias = noticias;
 		_context = ctx;
 		if(category != null){
@@ -32,7 +36,36 @@ public class CromaNewsAdapter extends BaseAdapter {
 		}
 	}
 	
+	public CromaNewsAdapter(Class<?> validClass, List<Noticia> noticias, Context ctx){
+		_context = ctx;
+		_noticias = new ArrayList<Noticia>();
+		if(validClass == Publicacion.class){
+			Publicacion dummy;
+			addToPublicacionStorage(noticias);
+			for(String k : PublicacionStorage.getInstance().getAll().keySet()){
+				dummy = new Publicacion();
+				dummy.setTitulo(k);
+				_noticias.add(dummy);
+			}
+			return;
+		}
+		for(Noticia n : noticias){
+			if(validClass.isInstance(n)){
+				_noticias.add(n);
+			}
+		}
+	}
 	
+	
+	private void addToPublicacionStorage(List<Noticia> noticias) {
+		for(Noticia n : noticias){
+			if(n instanceof Publicacion){
+				Publicacion publicacion = (Publicacion)n;
+				PublicacionStorage.getInstance().addPublicacion(publicacion);
+			}
+		}
+	}
+
 	public int getCount() {
 		return _noticias.size();
 	}

@@ -5,14 +5,20 @@ import java.io.InputStream;
 import java.net.URL;
 
 import mx.croma.news.android.core.Noticia;
+import mx.croma.news.android.db.FavoritosHelper;
+import mx.croma.news.android.object.Publicacion;
+import mx.croma.news.android.object.PublicacionStorage;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class DetalleNoticia extends Activity {
 
@@ -20,30 +26,59 @@ public class DetalleNoticia extends Activity {
 	private TextView _detalle;
 	private ImageView _imagen;
 	private Noticia _noticia;
-	
+	private Publicacion _publicacion;
+
 	@Override
-	public void onCreate(Bundle instance){
+	public void onCreate(Bundle instance) {
 		super.onCreate(instance);
 		setContentView(R.layout.detalle_noticia);
-		_titulo = (TextView)findViewById(R.id.txtTitulo);
-		_detalle = (TextView)findViewById(R.id.txtDetalle);
-		_imagen = (ImageView)findViewById(R.id.imgNoticia);
-		
-		_noticia = (Noticia)this.getIntent().getExtras().get("_noticia_");
-		
+		_titulo = (TextView) findViewById(R.id.txtTitulo);
+		_detalle = (TextView) findViewById(R.id.txtDetalle);
+		_imagen = (ImageView) findViewById(R.id.imgNoticia);
+
+		_noticia = (Noticia) this.getIntent().getExtras().get("_noticia_");
 		_titulo.setText(_noticia.getTitulo());
 		_detalle.setText(_noticia.getDescripcion());
 		_imagen.setImageDrawable(imageFromUrl(_noticia.getImgUrl()));
-		
-		findViewById(R.id.btnCompleto).setOnClickListener(new View.OnClickListener() {
+		if (_noticia instanceof Publicacion) {
+			LinearLayout layout = (LinearLayout) findViewById(R.id.noticiaMainLayout);
+			layout.removeView(findViewById(R.id.btnCompleto));
+			for (Publicacion p : PublicacionStorage.getInstance()
+					.getByCategory(_noticia.getTitulo())) {
+				_publicacion = p;
+				Button btn = new Button(this);
+				btn.setText(p.getFecha());
+				btn.setOnClickListener(new View.OnClickListener() {
+
+					public void onClick(View v) {
+						Intent i = new Intent(Intent.ACTION_VIEW, Uri
+								.parse(_publicacion.getLink()));
+						startActivity(i);
+					}
+				});
+				layout.addView(btn);
+			}
+		} else {
+			_detalle.setText(_noticia.getFecha() + " - " + _detalle.getText());
+			findViewById(R.id.btnCompleto).setOnClickListener(
+					new View.OnClickListener() {
+
+						public void onClick(View arg0) {
+							Intent i = new Intent(Intent.ACTION_VIEW, Uri
+									.parse(_noticia.getLink()));
+							startActivity(i);
+						}
+					});
+		}
+		findViewById(R.id.btnFavoritos).setOnClickListener(new View.OnClickListener() {
 			
-			public void onClick(View arg0) {
-				Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(_noticia.getLink()));
-				startActivity(i);
+			public void onClick(View v) {
+				new FavoritosHelper(DetalleNoticia.this).agregaNoticia(_noticia);
+				Toast.makeText(DetalleNoticia.this, "Agregado a favoritos", Toast.LENGTH_LONG).show();
 			}
 		});
 	}
-	
+
 	private Drawable imageFromUrl(String url) {
 		Drawable d = null;
 		InputStream is = null;

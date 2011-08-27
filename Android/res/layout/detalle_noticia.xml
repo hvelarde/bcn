@@ -5,8 +5,8 @@
 	<ScrollView android:id="@+id/ScrollView01"
 		android:layout_width="fill_parent" android:layout_height="fill_parent">
 		<LinearLayout android:orientation="vertical"
-			android:layout_width="fill_parent" android:layout_height="wrap_content"
-			android:id="@+id/dummy">
+			android:layout_width="fill_parent" android:layout_height="fill_parent"
+			android:id="@+id/noticiaMainLayout">
 			<TextView android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:id="@+id/txtTitulo"
 				android:text="Titulo" android:layout_gravity="center_horizontal"
@@ -21,6 +21,7 @@
 			<Button android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:id="@+id/btnCompleto"
 				android:text="Ver Completo"></Button>
+			<Button android:text="Agregar a favoritos" android:id="@+id/btnFavoritos" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
 		</LinearLayout>
 	</ScrollView>
 
