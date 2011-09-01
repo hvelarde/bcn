@@ -6,12 +6,13 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import org.xml.sax.SAXException;
-
 import mx.croma.news.android.core.CromaFeedHandler;
 import mx.croma.news.android.core.CromaNewsAdapter;
 import mx.croma.news.android.core.Noticia;
 import mx.croma.news.android.object.Publicacion;
+
+import org.xml.sax.SAXException;
+
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
@@ -22,8 +23,8 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
 
 public class ListaNoticias extends ListActivity {
 

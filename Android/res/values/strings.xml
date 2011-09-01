@@ -9,4 +9,27 @@
     <string name="valor">Valor</string>
     <string name="fecha">Fecha</string>
     <color name="orange">#ff9900</color>
+  	<string name="menu_principal">Página Principal</string>
+  	<string name="menu_compartir">Compartir</string>
+  	<string name="menu_tweet">Compartir en Twitter</string>
+  	<string name="menu_face">Compartir en Facebook</string>
+  	<string name="menu_mail">Enviar por correo electrónico</string>
+    <string name="menu_cerrar">Cerrar</string>
+    <string name="back">Regresar</string>
+    <string name="share_subject">Asunto</string>
+    <string name="share_title">Título</string>
+    <string name="share_subject_suggestion">Nota del Banco Central de Nicaragua</string>
+    <string name="share_not_yet_auth">Aún no ha otorgado el permiso para que esta aplicación publique en su cuenta. </string>
+    <string name="share_authorize">Autorizar a la aplicación publicar en mi cuenta</string> 
+    <string name="share_pin">Escriba el PIN</string>
+    <string name="share_once_auth">Una vez que haya otorgado el permiso, escriba el PIN y dé click en el botón para enviar.</string>
+  	<string name="share_username">Nombre de Usuario</string>
+  	<string name="share_psw">Contraseña</string>
+  	<string name="share_message">Mensaje personal</string>
+  	<string name="share_link_to_note_included">La liga a la nota será incluida automáticamente</string>
+  	<string name="share_published">La nota ha sido publicada</string>
+  	<string name="share_not_published">Ha ocurrido un error, no se ha publicado la nota</string>
+  	<string name="share_submit">Enviar</string>
+  	<string name="share_wrong_id">Nombre de usuario o contraseña erróneo.</string>
+  	<string name="share_logout">Su sesión se encuentra activa, haga click aquí para cerrarla.</string>
 </resources>

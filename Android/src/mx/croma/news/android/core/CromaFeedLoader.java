@@ -7,14 +7,13 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import org.xml.sax.SAXException;
-
 import mx.croma.news.android.R;
 import mx.croma.news.android.SplashScreen;
 
+import org.xml.sax.SAXException;
+
 import android.content.res.Resources;
 import android.widget.ProgressBar;
-import android.widget.SlidingDrawer;
 
 public class CromaFeedLoader implements Runnable {
 
