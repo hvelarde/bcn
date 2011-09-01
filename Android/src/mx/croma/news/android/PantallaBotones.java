@@ -34,6 +34,9 @@ public class PantallaBotones extends Activity implements OnClickListener{
 			case R.id.btnPublicaciones:
 				categoria = 4;
 				break;
+			case R.id.btnMarcadores:
+				categoria = 3;
+				break;
 			}
 			Intent i = new Intent(this, CromaNews.class);
 				i.putExtra("__tabId__", categoria);

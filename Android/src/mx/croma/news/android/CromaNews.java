@@ -53,7 +53,7 @@ public class CromaNews extends TabActivity {
 		spec = tabHost
 				.newTabSpec("Favoritos")
 				.setIndicator("Favoritos", res.getDrawable(R.drawable.ic_reciente))
-				.setContent(intent);
+				.setContent(intent.putExtra("__categoria__", "Favoritos"));
 		tabHost.addTab(spec);
 		intent = new Intent().setClass(this, ListaNoticias.class);
 		//intent = new Intent().setClass(this, RecienteActivity.class);
