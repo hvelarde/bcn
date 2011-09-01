@@ -126,5 +126,48 @@
 /* Mensaje de noticia no agregada */
 "noticia_no_agregada" = "La noticia ya existía en sus marcadores";
 
-/* Error por querer guardar una noticia que no se tiene */
+/* Error por querer trabajar con una noticia que no se tiene */
 "ERROR_NO_ENTRY" = "No se tiene informacion de una noticia";
+
+/* Boton de enviar a facebook */
+"boton_facebook" = "facebook";
+
+/* Boton de enviar a twitter */
+"boton_twitter" = "twitter";
+
+/* Boton de enviar a email */
+"boton_email" = "Email";
+
+/* Boton de enviar a clipboard */
+"boton_clipboard" = "Copiar enlace";
+
+/* No se puede enviar el correo */
+"NO_MAIL" = "Error de Correo";
+
+/* El mail no esta configurado */
+"configurar_correo" = "Debe de configurar previamente su correo";
+
+/* Correo cancelado */
+"email_canceled" = "Se canceló el envío del correo";
+
+/* Fallo envio correo */
+"email_failed" = "No se pudo registrar el correo para su envío";
+
+/* Correo guardado */
+"email_saved" = "El correo fue guardado en los borradores";
+
+/* Correo enviado */
+"email_sent" = "El correo fue registrado para su envío";
+
+/* Titulo para los envios a twitter */
+"titulo_twitter" = "BCN:";
+
+/* Error de envio */
+"share_error" = "No se pudo enviar";
+
+/* Envio exitoso */
+"share_sent" = "Envío exitoso";
+
+/* Cancelaron el envio */
+"share_cancel" = "Se canceló el envío";
+
