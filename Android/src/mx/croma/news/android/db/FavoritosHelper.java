@@ -54,7 +54,8 @@ public class FavoritosHelper extends SQLiteOpenHelper {
 	}
 	
 	public List<Noticia> getNoticias(){
-		Cursor c = getWritableDatabase().query(FAVORITOS_TABLE, null, null, null, null, null, null);
+		SQLiteDatabase database = getWritableDatabase();
+		Cursor c = database.query(FAVORITOS_TABLE, null, null, null, null, null, null);
 		Log.d("FavoritosDb", "Query exitoso");
 		List<Noticia> favoritos = new ArrayList<Noticia>();
 		while(c.moveToNext()){
@@ -70,6 +71,7 @@ public class FavoritosHelper extends SQLiteOpenHelper {
 		}
 		Log.d("FavoritosDb", "Cerrando cursor");
 		c.close();
+		database.close();
 		return favoritos;
 	}
 	

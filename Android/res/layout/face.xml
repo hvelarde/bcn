@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#FFFFFF"
+    android:id="@+id/d_Body"
+    >
+    
+	    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:orientation="horizontal"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:gravity="left"
+	    android:id="@+id/d_Head"
+	   	android:background="@drawable/header_bg"
+	    >
+
+      			<ImageView 
+			    android:layout_width="wrap_content" 
+			    android:layout_height="wrap_content" 
+			    android:layout_margin="3px"
+			    android:src="@drawable/back"
+			    android:id="@+id/i_regresar"
+			    />
+			    
+	    </LinearLayout>
+	
+	<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" 
+	android:scrollbars="vertical"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+    >	
+	   	<LinearLayout 
+		android:layout_width="fill_parent" 
+		android:layout_height="800px"
+		android:orientation="vertical"
+		>			
+ 					
+			<LinearLayout 
+			android:id="@+id/LinearLayout02"
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			android:layout_margin="5px"
+			android:gravity="left"
+			android:visibility="gone" 
+			>
+				
+				<TextView 
+				android:layout_width="wrap_content"
+	 			android:layout_height="wrap_content" 
+	 			android:id="@+id/lSubject"
+	 			android:text="@string/share_title"/>
+	
+				<EditText 
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" 
+				android:width="300dip" 
+				android:text="@string/share_subject_suggestion"
+				android:id="@+id/eSubject" />		
+			
+			</LinearLayout>
+		 
+		 
+			
+			<LinearLayout 
+			android:id="@+id/LinearLayout03"
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"
+	 		android:orientation="vertical"
+	 		android:gravity="left"
+	 		android:layout_margin="5px"
+	 		>
+		
+				<TextView 
+				android:layout_width="wrap_content"
+	 			android:layout_height="wrap_content" 
+	 			android:id="@+id/lTxt"
+	 			android:text="@string/share_message"
+	 			 />
+				
+				<EditText 
+				android:layout_width="wrap_content"
+		 		android:layout_height="wrap_content" 
+		 		android:lines="4" 
+		 		android:width="310dip"
+		 		android:maxLength="128"
+		 		android:id="@+id/eMsg" 
+		 		 />
+				
+				<TextView 
+				android:layout_width="wrap_content"
+	 			android:layout_height="wrap_content" 
+	 			android:id="@+id/lincluded"
+	 			android:text="@string/share_link_to_note_included"  />
+	 			
+				<TextView 
+				android:layout_width="wrap_content"
+	 			android:layout_height="wrap_content" 
+	 			android:layout_margin="5px"
+	 			style="@style/anchor1"
+	 			android:id="@+id/lurl"
+	 			android:text="http://.."  />
+	 			
+	 	</LinearLayout>		
+		 			
+	    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:orientation="horizontal"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_margin="5px"
+	    android:layout_marginTop="15px"
+	    android:padding="5px"
+	    android:gravity="left|center_vertical"
+	    android:id="@+id/l_submit"
+	   	android:background="@drawable/header_bg"
+	    >
+   				<TextView 
+				android:layout_width="wrap_content"
+	 			android:layout_height="wrap_content" 
+	 			style="@style/h2"
+	 			android:text="@string/share_submit"  />
+	    
+			    <ImageView 
+			    android:layout_width="wrap_content" 
+			    android:layout_height="wrap_content" 
+			    android:src="@drawable/facebtn"
+			    android:id="@+id/i_submit"
+			    />
+	    </LinearLayout>
+			
+	</LinearLayout>
+		
+	</ScrollView>
+
+</LinearLayout>

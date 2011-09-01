@@ -1,17 +1,20 @@
 package mx.croma.news.android;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import org.xml.sax.SAXException;
-
 import mx.croma.news.android.core.CromaFeedHandler;
 import mx.croma.news.android.core.CromaNewsAdapter;
 import mx.croma.news.android.core.Noticia;
+import mx.croma.news.android.db.FavoritosHelper;
 import mx.croma.news.android.object.Publicacion;
+
+import org.xml.sax.SAXException;
+
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
@@ -22,8 +25,8 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
 
 public class ListaNoticias extends ListActivity {
 
@@ -42,6 +45,7 @@ public class ListaNoticias extends ListActivity {
 		showDialog(PROGRESS_DIALOG);
 		lv = (ListView) findViewById(android.R.id.list);
 		String categoria = getIntent().getStringExtra("__categoria__");
+		CromaNewsAdapter newsAdapter;
 		try {
 			if (CromaFeedHandler.cacheNoticias == null) {
 				CromaFeedHandler cfh = new CromaFeedHandler();
@@ -52,21 +56,26 @@ public class ListaNoticias extends ListActivity {
 				sp.parse(_feedUrl, cfh);
 				progress = 60;
 				if ("Documentos".equals(categoria)) {
-					lv.setAdapter(new CromaNewsAdapter(Publicacion.class, cfh
-							.getNoticias(), this));
-				} else {
-					lv.setAdapter(new CromaNewsAdapter(categoria, cfh
-							.getNoticias(), this));
+					newsAdapter = new CromaNewsAdapter(Publicacion.class, cfh
+							.getNoticias(), this);
+				} else if("Favoritos".equals(categoria)){
+					newsAdapter = new CromaNewsAdapter(getFavoritos(), this);
+				}else{
+					newsAdapter = new CromaNewsAdapter(categoria, cfh
+							.getNoticias(), this);
 				}
 			} else {
 				if ("Documentos".equals(categoria)) {
-					lv.setAdapter(new CromaNewsAdapter(Publicacion.class,
-							CromaFeedHandler.cacheNoticias, this));
-				} else {
-					lv.setAdapter(new CromaNewsAdapter(categoria,
-							CromaFeedHandler.cacheNoticias, this));
+					newsAdapter = new CromaNewsAdapter(Publicacion.class,
+							CromaFeedHandler.cacheNoticias, this);
+				}else if("Favoritos".equals(categoria)){ 
+					newsAdapter = new CromaNewsAdapter(getFavoritos(), this);
+				}else {
+					newsAdapter = new CromaNewsAdapter(categoria,
+							CromaFeedHandler.cacheNoticias, this);
 				}
 			}
+			lv.setAdapter(newsAdapter);
 			progress = 80;
 			lv.setOnItemClickListener(new ListaListener());
 			progress = 100;
@@ -77,6 +86,11 @@ public class ListaNoticias extends ListActivity {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public ArrayList<Noticia> getFavoritos(){
+		FavoritosHelper helper = new FavoritosHelper(this);
+		return (ArrayList<Noticia>) helper.getNoticias();
 	}
 
 	protected Dialog onCreateDialog(int id) {

@@ -3,7 +3,6 @@ package mx.croma.news.android;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
@@ -27,7 +26,7 @@ public class Dashboard extends Activity {
 					index=1;
 				else if(view.getId()==R.id.btnNotas)
 					index=2;
-				else if(view.getId()==R.id.btnReciente)
+				else if(view.getId()==R.id.btnMarcadores)
 					index=3;
 				else if(view.getId()==R.id.btnPublicaciones)
 					index=4;
@@ -47,6 +46,8 @@ public class Dashboard extends Activity {
 		btnConferencias.setOnClickListener(listener);
 		ImageButton btnReciente=(ImageButton)findViewById(R.id.btnReciente);
 		btnReciente.setOnClickListener(listener);
+		ImageButton btnMarcadores=(ImageButton)findViewById(R.id.btnMarcadores);
+		btnMarcadores.setOnClickListener(listener);
 		
 	}
 }

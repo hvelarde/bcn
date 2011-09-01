@@ -3,10 +3,7 @@ package mx.croma.news.android.graphics;
 import java.util.ArrayList;
 import java.util.List;
 
-import mx.croma.news.android.R;
-
-import org.achartengine.ChartFactory;
-import org.achartengine.GraphicalView;
+import org.achartengine.*;
 import org.achartengine.chart.PointStyle;
 import org.achartengine.model.SeriesSelection;
 import org.achartengine.model.XYMultipleSeriesDataset;
@@ -14,6 +11,8 @@ import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
+
+import mx.croma.news.android.R;
 import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.Paint.Align;

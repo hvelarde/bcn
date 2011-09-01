@@ -17,7 +17,8 @@
 		<activity android:name=".DetalleNoticia"></activity>
 		<activity android:theme="@android:style/Theme.Black" android:name=".graphics.AChartEngineSampleActivity"/>
 		<activity android:theme="@android:style/Theme.Black" android:name=".graphics.BarChartSample"/>
-		
+		<activity android:name=".Share"/>
+		<activity android:name=".FacebookDialog"/>
 	</application>
 
 

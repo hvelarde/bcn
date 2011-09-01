@@ -5,7 +5,6 @@ import java.util.List;
 
 import mx.croma.news.android.object.Publicacion;
 import mx.croma.news.android.object.PublicacionStorage;
-
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
