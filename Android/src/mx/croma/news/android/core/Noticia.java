@@ -13,6 +13,17 @@ public class Noticia implements Serializable{
 	private String _link;
 	private String _categoria;
 	
+	/** Bookmarking index */
+	private int _id;
+	
+	public int getId(){
+		return _id;
+	}
+	
+	public void setId(int id){
+		_id = id;
+	}
+	
 	public String getCategoria() {
 		return _categoria;
 	}

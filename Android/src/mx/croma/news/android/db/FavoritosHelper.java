@@ -1,3 +1,4 @@
+
 package mx.croma.news.android.db;
 
 import java.util.ArrayList;
@@ -49,8 +50,17 @@ public class FavoritosHelper extends SQLiteOpenHelper {
 		cv.put("LINK", noticia.getLink());
 		cv.put("CATEGORIA", noticia.getCategoria());
 		Log.d("FavoritosDb", "Insertando noticia");
-		getWritableDatabase().insert(FAVORITOS_TABLE, null, cv);
+		SQLiteDatabase database = getWritableDatabase();
+		database.insert(FAVORITOS_TABLE, null, cv);
+		database.close();
 		Log.d("FavoritosDb", "Noticia insertada");
+	}
+	
+	public void eliminaNoticia(int id){
+		SQLiteDatabase database = getWritableDatabase();
+		database.delete(FAVORITOS_TABLE, "ID = " + id, null);
+		Log.d("BCN", "Row eliminada");
+		database.close();
 	}
 	
 	public List<Noticia> getNoticias(){
@@ -67,6 +77,7 @@ public class FavoritosHelper extends SQLiteOpenHelper {
 			n.setImgUrl(getVal(c, "IMGURL"));
 			n.setLink(getVal(c, "LINK"));
 			n.setTitulo(getVal(c, "TITULO"));
+			n.setId(c.getInt(c.getColumnIndex("ID")));
 			favoritos.add(n);
 		}
 		Log.d("FavoritosDb", "Cerrando cursor");

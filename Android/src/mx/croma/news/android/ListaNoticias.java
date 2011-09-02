@@ -10,6 +10,7 @@ import javax.xml.parsers.SAXParserFactory;
 import mx.croma.news.android.core.CromaFeedHandler;
 import mx.croma.news.android.core.CromaNewsAdapter;
 import mx.croma.news.android.core.Noticia;
+import mx.croma.news.android.core.NoticiaView;
 import mx.croma.news.android.db.FavoritosHelper;
 import mx.croma.news.android.object.Publicacion;
 
@@ -23,10 +24,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class ListaNoticias extends ListActivity {
 
@@ -36,6 +40,7 @@ public class ListaNoticias extends ListActivity {
 	private ProgressDialog progressDialog;
 	private ProgressThread progressThread;
 	public int progress = 0;
+	private String categoria;
 
 	@Override
 	public void onCreate(Bundle savedInstance) {
@@ -44,10 +49,12 @@ public class ListaNoticias extends ListActivity {
 		_feedUrl = getResources().getString(R.string.feed_prensa);
 		showDialog(PROGRESS_DIALOG);
 		lv = (ListView) findViewById(android.R.id.list);
-		String categoria = getIntent().getStringExtra("__categoria__");
+		categoria = getIntent().getStringExtra("__categoria__");
 		CromaNewsAdapter newsAdapter;
 		try {
-			if (CromaFeedHandler.cacheNoticias == null) {
+			if("Favoritos".equals(categoria)){
+				newsAdapter = new CromaNewsAdapter(getFavoritos(), this);
+			}else if (CromaFeedHandler.cacheNoticias == null) {
 				CromaFeedHandler cfh = new CromaFeedHandler();
 				SAXParserFactory spf = SAXParserFactory.newInstance();
 				progress = 10;
@@ -56,21 +63,17 @@ public class ListaNoticias extends ListActivity {
 				sp.parse(_feedUrl, cfh);
 				progress = 60;
 				if ("Documentos".equals(categoria)) {
-					newsAdapter = new CromaNewsAdapter(Publicacion.class, cfh
-							.getNoticias(), this);
-				} else if("Favoritos".equals(categoria)){
-					newsAdapter = new CromaNewsAdapter(getFavoritos(), this);
-				}else{
-					newsAdapter = new CromaNewsAdapter(categoria, cfh
-							.getNoticias(), this);
+					newsAdapter = new CromaNewsAdapter(Publicacion.class,
+							cfh.getNoticias(), this);
+				} else {
+					newsAdapter = new CromaNewsAdapter(categoria,
+							cfh.getNoticias(), this);
 				}
 			} else {
 				if ("Documentos".equals(categoria)) {
 					newsAdapter = new CromaNewsAdapter(Publicacion.class,
 							CromaFeedHandler.cacheNoticias, this);
-				}else if("Favoritos".equals(categoria)){ 
-					newsAdapter = new CromaNewsAdapter(getFavoritos(), this);
-				}else {
+				} else {
 					newsAdapter = new CromaNewsAdapter(categoria,
 							CromaFeedHandler.cacheNoticias, this);
 				}
@@ -87,8 +90,22 @@ public class ListaNoticias extends ListActivity {
 			e.printStackTrace();
 		}
 	}
-	
-	public ArrayList<Noticia> getFavoritos(){
+
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		if ("Favoritos".equals(categoria)) {
+			NoticiaView view = (NoticiaView) v;
+			Toast.makeText(ListaNoticias.this,
+					"ID " + view.getNoticia().getId(), Toast.LENGTH_LONG)
+					.show();
+			Log.d("BCN", "Favorito: " + view.getNoticia().getId());
+			return;
+		}
+		super.onCreateContextMenu(menu, v, menuInfo);
+	}
+
+	public ArrayList<Noticia> getFavoritos() {
 		FavoritosHelper helper = new FavoritosHelper(this);
 		return (ArrayList<Noticia>) helper.getNoticias();
 	}
@@ -163,5 +180,6 @@ public class ListaNoticias extends ListActivity {
 			mState = state;
 		}
 	}
+
 
 }
