@@ -30,7 +30,8 @@ public class Dashboard extends Activity {
 					index=3;
 				else if(view.getId()==R.id.btnPublicaciones)
 					index=4;
-				
+				else if(view.getId() == R.id.btnReciente)
+					index = 5;
 				intent.putExtra("index",index);
 				
 				startActivity(intent);

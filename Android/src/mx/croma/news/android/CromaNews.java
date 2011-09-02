@@ -1,4 +1,3 @@
-
 package mx.croma.news.android;
 
 import android.app.TabActivity;
@@ -14,7 +13,7 @@ public class CromaNews extends TabActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-	
+
 		Resources res = getResources(); // Resource object to get Drawables
 		TabHost tabHost = getTabHost();
 		TabHost.TabSpec spec; // Resusable TabSpec for each tab
@@ -29,40 +28,48 @@ public class CromaNews extends TabActivity {
 				.setIndicator("Indicadores",
 						res.getDrawable(R.drawable.ic_indicadores))
 				.setContent(intent);
-		
+
 		tabHost.addTab(spec);
-		
+
 		intent = new Intent().setClass(this, ListaNoticias.class);
 		// Do the same for the other tabs
-		//intent = new Intent().setClass(this, ConferenciasActivity.class);
+		// intent = new Intent().setClass(this, ConferenciasActivity.class);
 		spec = tabHost
 				.newTabSpec("conferencia")
 				.setIndicator("Conferencias",
 						res.getDrawable(R.drawable.ic_conferencias))
-				.setContent(intent.putExtra("__categoria__", "Video Conferencias"));
+				.setContent(
+						intent.putExtra("__categoria__", "Video Conferencias"));
 		tabHost.addTab(spec);
 		intent = new Intent().setClass(this, ListaNoticias.class);
-		//intent = new Intent().setClass(this, NotasActivity.class);
+		// intent = new Intent().setClass(this, NotasActivity.class);
 		spec = tabHost
 				.newTabSpec("notas")
 				.setIndicator("Notas", res.getDrawable(R.drawable.ic_notas))
 				.setContent(intent.putExtra("__categoria__", "Notas de Prensa"));
 		tabHost.addTab(spec);
 		intent = new Intent().setClass(this, ListaNoticias.class);
-		//intent = new Intent().setClass(this, ConferenciasActivity.class);
+		// intent = new Intent().setClass(this, ConferenciasActivity.class);
 		spec = tabHost
 				.newTabSpec("Favoritos")
-				.setIndicator("Favoritos", res.getDrawable(R.drawable.ic_reciente))
+				.setIndicator("Favoritos",
+						res.getDrawable(R.drawable.ic_favoritos))
 				.setContent(intent.putExtra("__categoria__", "Favoritos"));
 		tabHost.addTab(spec);
 		intent = new Intent().setClass(this, ListaNoticias.class);
-		//intent = new Intent().setClass(this, RecienteActivity.class);
+		// intent = new Intent().setClass(this, RecienteActivity.class);
 		spec = tabHost
 				.newTabSpec("publicaciones")
-				.setIndicator("Documentos", res.getDrawable(R.drawable.ic_publicaciones))
+				.setIndicator("Documentos",
+						res.getDrawable(R.drawable.ic_publicaciones))
 				.setContent(intent.putExtra("__categoria__", "Documentos"));
 		tabHost.addTab(spec);
-		Log.d("BCN","index"+getIntent().getExtras().getInt("index"));
+		spec = tabHost
+				.newTabSpec("recientes")
+				.setIndicator("Recientes",
+						res.getDrawable(R.drawable.ic_reciente))
+				.setContent(intent.putExtra("__categoria__", "Recientes"));
+		tabHost.addTab(spec);
 		tabHost.setCurrentTab(getIntent().getExtras().getInt("index"));
 	}
 }

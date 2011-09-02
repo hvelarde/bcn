@@ -66,6 +66,8 @@ public class ListaNoticias extends ListActivity {
 					if ("Documentos".equals(categoria)) {
 						newsAdapter = new CromaNewsAdapter(Publicacion.class,
 								cfh.getNoticias(), this);
+					} else if("Recientes".equals(categoria)) {
+						newsAdapter = new CromaNewsAdapter(RecientesCache.getCache().getRecientes(), this);
 					} else {
 						newsAdapter = new CromaNewsAdapter(categoria,
 								cfh.getNoticias(), this);
@@ -74,6 +76,8 @@ public class ListaNoticias extends ListActivity {
 					if ("Documentos".equals(categoria)) {
 						newsAdapter = new CromaNewsAdapter(Publicacion.class,
 								CromaFeedHandler.cacheNoticias, this);
+					} else if("Recientes".equals(categoria)) {
+						newsAdapter = new CromaNewsAdapter(RecientesCache.getCache().getRecientes(), this);
 					} else {
 						newsAdapter = new CromaNewsAdapter(categoria,
 								CromaFeedHandler.cacheNoticias, this);
