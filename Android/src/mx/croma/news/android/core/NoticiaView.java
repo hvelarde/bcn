@@ -36,6 +36,7 @@ public class NoticiaView extends LinearLayout {
 				
 				public void onClick(DialogInterface dialog, int which) {
 					new FavoritosHelper(NoticiaView.this.getContext()).eliminaNoticia(NoticiaView.this.getNoticia().getId());
+					NoticiaView.this.setVisibility(GONE);
 				}
 			}).setNegativeButton("No", null).show();
 			Log.d("BCN", "Favorito: " + view.getNoticia().getId());
