@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/scroll" 
+	android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/header_bg"
+    android:id="@+id/d_Body"
+    >
+    
+	    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:orientation="vertical"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:gravity="center_horizontal"
+	    android:id="@+id/d_Head"
+   		android:padding="15px"
+	    >
+	    
+      			<ImageView 
+			    android:layout_width="150px" 
+			    android:layout_height="150px" 
+			    android:layout_margin="10px"
+			    android:src="@drawable/escudobig"
+			    android:id="@+id/i_logo"
+			    />
+			    
+   				<TextView 
+				android:layout_width="wrap_content"
+	 			android:layout_height="wrap_content" 
+	 			android:id="@+id/lFristText"
+				android:padding="5px"
+	 			style="@style/small"
+	 			android:text="@string/registry_welcome"/>
+			    
+    	</LinearLayout>
+	
+	   	<LinearLayout 
+	    android:layout_width="wrap_content" 
+	    android:layout_height="wrap_content" 
+		android:orientation="vertical"
+		android:padding="15px"
+		>			
+ 					
+			<LinearLayout 
+			android:id="@+id/LinearLayout02"
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			android:layout_margin="5px"
+			android:gravity="left"
+			>
+				
+				<TextView 
+				android:layout_width="wrap_content"
+	 			android:layout_height="wrap_content" 
+	 			android:id="@+id/lName"
+	 			style="@style/small"
+	 			android:text="@string/registry_name"/>
+	
+				<EditText 
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" 
+				android:width="300dip" 
+				android:text=""
+				android:id="@+id/eName" />		
+			
+			</LinearLayout>
+			 
+		 	<LinearLayout 
+			android:id="@+id/LinearLayout03"
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			android:layout_margin="5px"
+			android:gravity="left"
+			>
+				
+				<TextView 
+				android:layout_width="wrap_content"
+	 			android:layout_height="wrap_content" 
+	 			android:id="@+id/lMail"
+	 			style="@style/small"
+	 			android:text="@string/registry_mail"/>
+	
+				<EditText 
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" 
+				android:width="300dip" 
+				android:text=""
+				android:id="@+id/eMail" />		
+			
+			</LinearLayout>
+			
+		    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		    android:orientation="horizontal"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_margin="5px"
+		    android:padding="5px"
+		    android:gravity="left|center_vertical"
+		    android:id="@+id/l_submit"
+		   	android:background="@drawable/border1"
+		    >
+	  			<TextView 
+				android:layout_width="wrap_content"
+	 			android:layout_height="wrap_content" 
+	 			android:id="@+id/l_doreg"
+	 			style="@style/h2"
+	 			android:text="@string/registry_register"  />
+	    
+			    
+    		</LinearLayout>
+			
+	</LinearLayout>
+	
+</LinearLayout>
+
+</ScrollView>

@@ -37,6 +37,12 @@
 		<item name="android:textStyle">bold</item>
 	</style>
 	
+	<style name="small">
+		<item name="android:textColor">#FFFFFF</item>
+		<item name="android:textSize">5.6pt</item>
+		<item name="android:textStyle">bold</item>
+	</style>
+	
 	<style name="h4a">
 		<item name="android:textColor">#0000aa</item>
 		<item name="android:textSize">6.4pt</item>

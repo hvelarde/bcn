@@ -2,6 +2,8 @@
 <resources>
     <string name="hello">Hello World, CromaNews!</string>
     <string name="app_name">BCN News</string>
+    <string name="url_signup">http://bcn.guegue.info/signup.php</string>
+    <string name="url_feedback">http://bcn.guegue.info/feedback.php</string>
     <string name="url_feed">http://bcn.guegue.info/atom</string>
     <string name="feed_warp">http://bcn.guegue.info/atom</string>
     <string name="feed_prensa">http://bcn.guegue.info/atom</string>
@@ -16,6 +18,14 @@
   	<string name="menu_mail">Enviar por correo electrónico</string>
     <string name="menu_cerrar">Cerrar</string>
     <string name="back">Regresar</string>
+    <string name="registry_welcome">Bienvenido a Noticias BCN. Para empezar a utilizar esta aplicación es necesario que llene el siguiente registro. Sólo tendrá que llenarlo una vez</string>
+    <string name="registry_name">Nombre</string>
+    <string name="registry_invalid_name">No ha introducido su nombre</string>
+    <string name="registry_mail">Correo electrónico</string>
+    <string name="registry_invalid_mail">No ha introducido un correo electrónico válido</string>
+    <string name="registry_register">Registrar</string>
+    <string name="registry_wait">Un momento por favor</string>
+    <string name="registry_fail">El registro ha fallado, se requerirá que lo realice la próxima vez que utilice la aplicación.</string>
     <string name="share_subject">Asunto</string>
     <string name="share_title">Título</string>
     <string name="share_subject_suggestion">Nota del Banco Central de Nicaragua</string>
