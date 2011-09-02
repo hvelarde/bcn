@@ -52,35 +52,37 @@ public class ListaNoticias extends ListActivity {
 		categoria = getIntent().getStringExtra("__categoria__");
 		CromaNewsAdapter newsAdapter;
 		try {
-			if("Favoritos".equals(categoria)){
+			if ("Favoritos".equals(categoria)) {
 				newsAdapter = new CromaNewsAdapter(getFavoritos(), this);
-			}else if (CromaFeedHandler.cacheNoticias == null) {
-				CromaFeedHandler cfh = new CromaFeedHandler();
-				SAXParserFactory spf = SAXParserFactory.newInstance();
-				progress = 10;
-				SAXParser sp = spf.newSAXParser();
-				progress = 20;
-				sp.parse(_feedUrl, cfh);
-				progress = 60;
-				if ("Documentos".equals(categoria)) {
-					newsAdapter = new CromaNewsAdapter(Publicacion.class,
-							cfh.getNoticias(), this);
-				} else {
-					newsAdapter = new CromaNewsAdapter(categoria,
-							cfh.getNoticias(), this);
-				}
 			} else {
-				if ("Documentos".equals(categoria)) {
-					newsAdapter = new CromaNewsAdapter(Publicacion.class,
-							CromaFeedHandler.cacheNoticias, this);
+				if (CromaFeedHandler.cacheNoticias == null) {
+					CromaFeedHandler cfh = new CromaFeedHandler();
+					SAXParserFactory spf = SAXParserFactory.newInstance();
+					progress = 10;
+					SAXParser sp = spf.newSAXParser();
+					progress = 20;
+					sp.parse(_feedUrl, cfh);
+					progress = 60;
+					if ("Documentos".equals(categoria)) {
+						newsAdapter = new CromaNewsAdapter(Publicacion.class,
+								cfh.getNoticias(), this);
+					} else {
+						newsAdapter = new CromaNewsAdapter(categoria,
+								cfh.getNoticias(), this);
+					}
 				} else {
-					newsAdapter = new CromaNewsAdapter(categoria,
-							CromaFeedHandler.cacheNoticias, this);
+					if ("Documentos".equals(categoria)) {
+						newsAdapter = new CromaNewsAdapter(Publicacion.class,
+								CromaFeedHandler.cacheNoticias, this);
+					} else {
+						newsAdapter = new CromaNewsAdapter(categoria,
+								CromaFeedHandler.cacheNoticias, this);
+					}
 				}
+				lv.setOnItemClickListener(new ListaListener());
 			}
-			lv.setAdapter(newsAdapter);
 			progress = 80;
-			lv.setOnItemClickListener(new ListaListener());
+			lv.setAdapter(newsAdapter);
 			progress = 100;
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
@@ -180,6 +182,5 @@ public class ListaNoticias extends ListActivity {
 			mState = state;
 		}
 	}
-
 
 }

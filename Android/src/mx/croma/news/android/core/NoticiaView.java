@@ -4,12 +4,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-import mx.croma.news.android.ListaNoticias;
+import mx.croma.news.android.DetalleNoticia;
 import mx.croma.news.android.db.FavoritosHelper;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.text.Html;
 import android.util.Log;
@@ -43,6 +44,19 @@ public class NoticiaView extends LinearLayout {
 			return true;
 		}
 	};
+	
+	private class FavoritosClickListener implements OnClickListener{
+
+		public void onClick(View v) {
+			NoticiaView view = (NoticiaView)v;
+			Intent i = new Intent(NoticiaView.this.getContext(), DetalleNoticia.class);
+			i.putExtra("_noticia_", view.getNoticia());
+			i.putExtra("_marcable_", false);
+			view.getContext().startActivity(i);
+		}
+		
+	}
+	
 	public Noticia getNoticia(){
 		return _noticia;
 	}
@@ -52,6 +66,8 @@ public class NoticiaView extends LinearLayout {
 		if(n.getId() != 0){
 			setLongClickable(true);
 			setOnLongClickListener(new FavoritosLongClickListener());
+			setClickable(true);
+			setOnClickListener(new FavoritosClickListener());
 		}
 		setOrientation(VERTICAL);
 		_noticia = n;

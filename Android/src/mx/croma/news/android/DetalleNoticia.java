@@ -30,49 +30,49 @@ public class DetalleNoticia extends Activity {
 	private ImageView _imagen;
 	private Noticia _noticia;
 	private Publicacion _publicacion;
-	
+
 	@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.mmenu, menu);
-        return true;
-    }
-	
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.mmenu, menu);
+		return true;
+	}
+
 	public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+		switch (item.getItemId()) {
 
-        case R.id.m_tweet:
-        	invoke_share("twitter");
-            return true;
-        case R.id.m_face:
-        	invoke_share("face");
-            return true;
-        case R.id.m_mail:
-        	invoke_share("mail");
-            return true;
+		case R.id.m_tweet:
+			invoke_share("twitter");
+			return true;
+		case R.id.m_face:
+			invoke_share("face");
+			return true;
+		case R.id.m_mail:
+			invoke_share("mail");
+			return true;
 
-        default:
-            return super.onOptionsItemSelected(item);
-        }
-    }
-	
-    public void invoke_share(String method) {
-    	Intent myIntent = new Intent(this.getBaseContext(), Share.class); 
-    	myIntent.putExtra("sharing_method", method);
-    	myIntent.putExtra("content_url", _noticia.getLink());
-    	myIntent.putExtra("content_title", _noticia.getTitulo());
-    	startActivityForResult(myIntent, 0);
-    }
-    
-    public void invoke_principal() {
-    	Intent myIntent = new Intent(this.getBaseContext(), CromaNews.class); 
-    	startActivityForResult(myIntent, 0); 	
-    	this.finish();
-    }
-    
-    public void invoke_close() {
-    	this.finish();
-    }
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
+	public void invoke_share(String method) {
+		Intent myIntent = new Intent(this.getBaseContext(), Share.class);
+		myIntent.putExtra("sharing_method", method);
+		myIntent.putExtra("content_url", _noticia.getLink());
+		myIntent.putExtra("content_title", _noticia.getTitulo());
+		startActivityForResult(myIntent, 0);
+	}
+
+	public void invoke_principal() {
+		Intent myIntent = new Intent(this.getBaseContext(), CromaNews.class);
+		startActivityForResult(myIntent, 0);
+		this.finish();
+	}
+
+	public void invoke_close() {
+		this.finish();
+	}
 
 	@Override
 	public void onCreate(Bundle instance) {
@@ -81,13 +81,12 @@ public class DetalleNoticia extends Activity {
 		_titulo = (TextView) findViewById(R.id.txtTitulo);
 		_detalle = (TextView) findViewById(R.id.txtDetalle);
 		_imagen = (ImageView) findViewById(R.id.imgNoticia);
-
+		LinearLayout layout = (LinearLayout) findViewById(R.id.noticiaMainLayout);
 		_noticia = (Noticia) this.getIntent().getExtras().get("_noticia_");
 		_titulo.setText(_noticia.getTitulo());
 		_detalle.setText(_noticia.getDescripcion());
 		_imagen.setImageDrawable(imageFromUrl(_noticia.getImgUrl()));
 		if (_noticia instanceof Publicacion) {
-			LinearLayout layout = (LinearLayout) findViewById(R.id.noticiaMainLayout);
 			layout.removeView(findViewById(R.id.btnCompleto));
 			for (Publicacion p : PublicacionStorage.getInstance()
 					.getByCategory(_noticia.getTitulo())) {
@@ -116,13 +115,21 @@ public class DetalleNoticia extends Activity {
 						}
 					});
 		}
-		findViewById(R.id.btnFavoritos).setOnClickListener(new View.OnClickListener() {
-			
-			public void onClick(View v) {
-				new FavoritosHelper(DetalleNoticia.this).agregaNoticia(_noticia);
-				Toast.makeText(DetalleNoticia.this, "Agregado a favoritos", Toast.LENGTH_LONG).show();
-			}
-		});
+		if (getIntent().getBooleanExtra("_marcable_", true)) {
+			findViewById(R.id.btnFavoritos).setOnClickListener(
+					new View.OnClickListener() {
+
+						public void onClick(View v) {
+							new FavoritosHelper(DetalleNoticia.this)
+									.agregaNoticia(_noticia);
+							Toast.makeText(DetalleNoticia.this,
+									"Agregado a favoritos", Toast.LENGTH_LONG)
+									.show();
+						}
+					});
+		} else {
+			layout.removeView(findViewById(R.id.btnFavoritos));
+		}
 	}
 
 	private Drawable imageFromUrl(String url) {
