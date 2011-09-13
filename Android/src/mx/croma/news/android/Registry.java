@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.widget.EditText;
 import android.view.View.OnClickListener;
 import android.widget.ProgressBar;
@@ -36,16 +37,19 @@ public class Registry extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//resetVisitNumber();
+		
 		InitializeVisitCount();
 		if (visitno<2) {
+			resetVisitNumber();
 			Log.v("Visit Number", "FIRST TIME VISIT");
 			setContentView(R.layout.registry);
 			InitializeInterface();
 		} else if (visitno==10) {
 			Log.v("Visit Number", "TENTH VISIT");
-			RegisterSuccesfulCallback();
+			setContentView(R.layout.feedback);
+			InitializeFeedbackInterface();
 		} else {
+			resetVisitNumber();
 			Log.v("Visit Number", "Normal Visit");
 			RegisterSuccesfulCallback();
 		}
@@ -65,8 +69,36 @@ public class Registry extends Activity {
 			String mail = ((EditText)(findViewById(R.id.eMail))).getText().toString();
 			if (ValidateValues(name, mail)) {
 				DoRegister(name, mail);
-			}
-			
+			}	
+		}
+    };
+    
+    private OnClickListener lDontReg = new OnClickListener() {
+		public void onClick(View v) {
+			RegisterSuccesfulCallback();
+		}
+    };
+    
+    private OnLongClickListener __toFeedBack = new OnLongClickListener() {
+		public boolean onLongClick(View arg0) {
+	    	Intent myIntent = new Intent(getBaseContext(), Registry.class); 
+	    	startActivityForResult(myIntent, 0);
+	    	storeVisitNumber(10);
+	    	Log.v("Visit Number Increased", visitno+" times");   
+	    	finish();
+			return false;
+		}
+    };
+    
+    private OnClickListener lDoFeed = new OnClickListener() {
+		public void onClick(View v) {
+			String name = ((EditText)(findViewById(R.id.eName))).getText().toString();
+			String mail = ((EditText)(findViewById(R.id.eMail))).getText().toString();
+			String country = ((EditText)(findViewById(R.id.eCountry))).getText().toString();
+			String message =  ((EditText)(findViewById(R.id.eMessage))).getText().toString();
+			if (ValidateValues(name, mail, country, message)) {
+				DoFeedBack(name, mail, country, message);
+			}	
 		}
     };
     
@@ -83,6 +115,13 @@ public class Registry extends Activity {
     
     private void InitializeInterface() {
     	(findViewById(R.id.l_submit)).setOnClickListener(lDoreg);
+    	(findViewById(R.id.l_dont)).setOnClickListener(lDontReg);
+    	(findViewById(R.id.l_dont)).setOnLongClickListener(__toFeedBack);
+    }
+    
+    private void InitializeFeedbackInterface() {
+    	(findViewById(R.id.l_submit)).setOnClickListener(lDoFeed);
+    	(findViewById(R.id.l_dont)).setOnClickListener(lDontReg);
     }
     
     private boolean ValidateValues(String name, String mail) {
@@ -90,14 +129,41 @@ public class Registry extends Activity {
     	if (name.length()<2) { 
     		Toast myToast = Toast.makeText(getApplicationContext(), getString(R.string.registry_invalid_name) , Toast.LENGTH_LONG);  
 			myToast.show();
-			r = false;
+			return false;
     	}
     	if ((mail.length()<2)) {
     		if ((mail.indexOf("@")==-1)) {
 	    		Toast myToast = Toast.makeText(getApplicationContext(), getString(R.string.registry_invalid_mail) , Toast.LENGTH_LONG);  
 				myToast.show();
-				r = false;
+				return false;
     		}
+    	}
+    	return r;
+    }
+    
+    private boolean ValidateValues(String name, String mail, String country, String message) {
+    	boolean r = true;
+    	if (name.length()<2) { 
+    		Toast myToast = Toast.makeText(getApplicationContext(), getString(R.string.registry_invalid_name) , Toast.LENGTH_LONG);  
+			myToast.show();
+			return false;
+    	}
+    	if ((mail.length()<2)) {
+    		if ((mail.indexOf("@")==-1)) {
+	    		Toast myToast = Toast.makeText(getApplicationContext(), getString(R.string.registry_invalid_mail) , Toast.LENGTH_LONG);  
+				myToast.show();
+				return false;
+    		}
+    	}
+    	if ((country.length()<2)) {
+    		Toast myToast = Toast.makeText(getApplicationContext(), getString(R.string.feedback_invalid_country) , Toast.LENGTH_LONG);  
+			myToast.show();
+			return false;
+    	}
+    	if ((message.length()<2)) {
+    		Toast myToast = Toast.makeText(getApplicationContext(), getString(R.string.feedback_invalid_message) , Toast.LENGTH_LONG);  
+			myToast.show();
+			return false;
     	}
     	return r;
     }
@@ -118,6 +184,24 @@ public class Registry extends Activity {
     	okr.execute("regurl");
     }
     
+    private void DoFeedBack(String name, String mail, String country, String message) {
+    	try {
+			name = URLEncoder.encode(name, "UTF8");
+			mail = URLEncoder.encode(mail, "UTF8");
+			country = URLEncoder.encode(country, "UTF8");
+			message = URLEncoder.encode(message, "UTF8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+    	
+    	String regurl = getString(R.string.url_signup);
+    	regurl += "?name=" + name + "&email=" + mail + "country=" + country + "&message=" + message;
+    	Log.v("URL SIGNUP ENCODED FEEDBACK", regurl);
+    	setWaitMessage();
+    	CheckSimpleOkResponse okr = new CheckSimpleOkResponse(regurl);
+    	okr.execute("regurl");
+    }
+    
     private void RegisterSuccesfulCallback() {
     	Intent myIntent = new Intent(getBaseContext(), Dashboard.class); 
     	startActivityForResult(myIntent, 0);
@@ -126,8 +210,12 @@ public class Registry extends Activity {
     }
     
     private void RegisterUnSuccesfulCallback() {
-		Toast myToast = Toast.makeText(getApplicationContext(), getString(R.string.registry_fail) , Toast.LENGTH_LONG);  
-		myToast.show(); 
+    	if (visitno!=10) {
+    		Toast myToast = Toast.makeText(getApplicationContext(), getString(R.string.registry_fail) , Toast.LENGTH_LONG);  
+    		myToast.show(); 
+    	} else {
+    		UpdateVisitNumber();
+    	}
     	Intent myIntent = new Intent(getBaseContext(), Dashboard.class); 
     	startActivityForResult(myIntent, 0);
     	finish();
@@ -154,7 +242,9 @@ public class Registry extends Activity {
    }
     
     public void setWaitMessage() {
+    	(findViewById(R.id.l_dont)).setVisibility(8);
     	((TextView)findViewById(R.id.l_doreg)).setText(getString(R.string.registry_wait));
+    	((TextView)findViewById(R.id.l_doreg)).setOnClickListener(null);
     }
     
 	
