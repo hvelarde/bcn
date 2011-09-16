@@ -32,9 +32,6 @@ public class CromaFeedHandler extends DefaultHandler {
 	}
 
 	public ArrayList<Noticia> getNoticias() {
-		if(cacheNoticias == null){
-			cacheNoticias = _noticias;
-		}
 		return _noticias;
 	}
 

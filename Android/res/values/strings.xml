@@ -18,6 +18,9 @@
   	<string name="menu_mail">Enviar por correo electrónico</string>
     <string name="menu_cerrar">Cerrar</string>
     <string name="back">Regresar</string>
+    <string name="dialog_downloading">Descargando. Espere un momento.</string>
+    <string name="dialog_updating">La información se está actualizando. Espere un momento</string>
+    <string name="dialog_error">Ha ocurrido un error. Verifique su conexión en intente de nuevo</string>
     <string name="registry_welcome">Bienvenido a Noticias BCN. Para empezar a utilizar esta aplicación llene el siguiente registro. Sólo tendrá que llenarlo una vez.</string>
     <string name="registry_name">Nombre</string>
     <string name="registry_invalid_name">No ha introducido su nombre</string>

@@ -1,8 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ListView
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent"
-  android:id="@id/android:list">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/llBody"
+>
+
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:orientation="vertical"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:id="@+id/llMessage"
+	    android:visibility="gone"
+	    android:padding="10px"
+	>
+	
+		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:orientation="vertical"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:id="@+id/llInner"
+	    android:padding="5px"
+	    android:background="@drawable/border1"
+		>
+		
+		    <TextView  
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content" 
+		    android:text=""
+			style="@style/h3b"
+		    android:id="@+id/tMessage"
+		    />
+	
+		</LinearLayout>
+	
+	
+	</LinearLayout>
+
+	<ListView
+	  xmlns:android="http://schemas.android.com/apk/res/android"
+	  android:layout_width="fill_parent"
+	  android:layout_height="fill_parent"
+	  android:id="@id/android:list" />
+
   
-</ListView>
+</LinearLayout>

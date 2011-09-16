@@ -1,7 +1,9 @@
 package mx.croma.news.android;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -16,84 +18,75 @@ import mx.croma.news.android.object.Publicacion;
 
 import org.xml.sax.SAXException;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Html;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.ViewGroup;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.ViewGroup.LayoutParams;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-public class ListaNoticias extends ListActivity {
+public class ListaNoticias extends Activity {
 
+	public static final long REFRESH_TIME = 60000;
+	public static final String PREFS_NAME = "CromaNews_BCN_CACHE";
+	
 	private String _feedUrl;
 	private ListView lv;
-	private static final int PROGRESS_DIALOG = 0;
-	private ProgressDialog progressDialog;
-	private ProgressThread progressThread;
-	public int progress = 0;
+	private LinearLayout ll;
+	TextView ntv;
+	String istr ="";
+	String icache ="";
+	long cachedate;
+	long nowdate;
+	boolean created = false;
 	private String categoria;
 
 	@Override
 	public void onCreate(Bundle savedInstance) {
 		super.onCreate(savedInstance);
 		setContentView(R.layout.lista_noticias);
-		_feedUrl = getResources().getString(R.string.feed_prensa);
-		showDialog(PROGRESS_DIALOG);
+		_feedUrl = getString(R.string.feed_prensa);
 		lv = (ListView) findViewById(android.R.id.list);
 		categoria = getIntent().getStringExtra("__categoria__");
-		CromaNewsAdapter newsAdapter;
-		try {
-			if ("Favoritos".equals(categoria)) {
-				newsAdapter = new CromaNewsAdapter(getFavoritos(), this);
+		SetWaitMessage();
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();	
+		if ("Favoritos".equals(categoria)) {
+			CromaNewsAdapter newsAdapter = new CromaNewsAdapter(getFavoritos(), this);
+		} else {
+			AsyncDownloadParse adp = new AsyncDownloadParse(this,categoria,_feedUrl);
+			if (!created) {
+				adp.execute("");
+				created = true;
 			} else {
-				if (CromaFeedHandler.cacheNoticias == null) {
-					CromaFeedHandler cfh = new CromaFeedHandler();
-					SAXParserFactory spf = SAXParserFactory.newInstance();
-					progress = 10;
-					SAXParser sp = spf.newSAXParser();
-					progress = 20;
-					sp.parse(_feedUrl, cfh);
-					progress = 60;
-					if ("Documentos".equals(categoria)) {
-						newsAdapter = new CromaNewsAdapter(Publicacion.class,
-								cfh.getNoticias(), this);
-					} else if("Recientes".equals(categoria)) {
-						newsAdapter = new CromaNewsAdapter(RecientesCache.getCache().getRecientes(), this);
-					} else {
-						newsAdapter = new CromaNewsAdapter(categoria,
-								cfh.getNoticias(), this);
-					}
-				} else {
-					if ("Documentos".equals(categoria)) {
-						newsAdapter = new CromaNewsAdapter(Publicacion.class,
-								CromaFeedHandler.cacheNoticias, this);
-					} else if("Recientes".equals(categoria)) {
-						newsAdapter = new CromaNewsAdapter(RecientesCache.getCache().getRecientes(), this);
-					} else {
-						newsAdapter = new CromaNewsAdapter(categoria,
-								CromaFeedHandler.cacheNoticias, this);
-					}
+				if (!adp.UpToDate()) {
+					SetUpdateMessage();
+					ResetInterface();
+					adp.execute("");
+					created = true;	
 				}
-				lv.setOnItemClickListener(new ListaListener());
 			}
-			progress = 80;
-			lv.setAdapter(newsAdapter);
-			progress = 100;
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-		} catch (SAXException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+			lv.setOnItemClickListener(new ListaListener());
 		}
 	}
 
@@ -116,20 +109,6 @@ public class ListaNoticias extends ListActivity {
 		return (ArrayList<Noticia>) helper.getNoticias();
 	}
 
-	protected Dialog onCreateDialog(int id) {
-		switch (id) {
-		case PROGRESS_DIALOG:
-			progressDialog = new ProgressDialog(ListaNoticias.this);
-			progressDialog.setMessage("Cargando...");
-			progressDialog.setIndeterminate(true);
-			progressThread = new ProgressThread(handler);
-			progressThread.start();
-			return progressDialog;
-		default:
-			return null;
-		}
-	}
-
 	private class ListaListener implements OnItemClickListener {
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
@@ -138,53 +117,58 @@ public class ListaNoticias extends ListActivity {
 			i.putExtra("_noticia_", n);
 			startActivity(i);
 		}
-
 	}
-
-	final Handler handler = new Handler() {
-		public void handleMessage(Message msg) {
-			int total = msg.getData().getInt("total");
-			if (total >= 100) {
-				dismissDialog(PROGRESS_DIALOG);
-				progressThread.setState(ProgressThread.STATE_DONE);
-			}
-		}
-	};
-
-	/** Nested class that performs progress calculations (counting) */
-	private class ProgressThread extends Thread {
-		Handler mHandler;
-		final static int STATE_DONE = 0;
-		final static int STATE_RUNNING = 1;
-		int mState;
-
-		ProgressThread(Handler h) {
-			mHandler = h;
-		}
-
-		public void run() {
-			mState = STATE_RUNNING;
-			// total = 0;
-			while (mState == STATE_RUNNING) {
-				try {
-					Thread.sleep(100);
-				} catch (InterruptedException e) {
-					Log.e("ERROR", "Thread Interrupted");
-				}
-				Message msg = mHandler.obtainMessage();
-				Bundle b = new Bundle();
-				b.putInt("total", progress);
-				msg.setData(b);
-				mHandler.sendMessage(msg);
-			}
-		}
-
-		/*
-		 * sets the current state for the thread, used to stop the thread
-		 */
-		public void setState(int state) {
-			mState = state;
-		}
+	
+	public void ResetInterface() {
+		ViewGroup v = (ViewGroup) findViewById(android.R.id.list);
+		v.removeViews(0, v.getChildCount());
+		v.invalidate();
 	}
+	
+	public void FinishedDownloadCallback(String categoria, CromaFeedHandler cfh) {
+		CromaNewsAdapter newsAdapter;
+		if (categoria.equalsIgnoreCase("Documentos")) {
+			newsAdapter = new CromaNewsAdapter(Publicacion.class, cfh.getNoticias(), this);
+		} else if(categoria.equalsIgnoreCase("Recientes")) {
+			newsAdapter = new CromaNewsAdapter(RecientesCache.getCache().getRecientes(), this);
+		} else {
+			newsAdapter = new CromaNewsAdapter(categoria, cfh.getNoticias(), this);
+		}
+		lv.setOnItemClickListener(new ListaListener());
+		lv.setAdapter(newsAdapter);	
+		HideWaitMessage();
+	}
+	
+	public void ErrorCallback(String key) {
+		ErrorMessage();
+	}
+	
+	public void SetWaitMessage() {
+		ViewGroup parent = (ViewGroup) findViewById(R.id.llMessage);
+		parent.setVisibility(0);
+    	TextView ntv = (TextView) findViewById(R.id.tMessage);
+    	ntv.setText(getString(R.string.dialog_downloading));
+	}
+	
+	public void SetUpdateMessage() {
+		ViewGroup parent = (ViewGroup) findViewById(R.id.llMessage);
+		parent.setVisibility(0);
+    	TextView ntv = (TextView) findViewById(R.id.tMessage);
+    	ntv.setText(getString(R.string.dialog_updating));
+	}
+	
+	public void HideWaitMessage() {
+		ViewGroup parent = (ViewGroup) findViewById(R.id.llMessage);
+		parent.setVisibility(8);
+	}
+	
+	public void ErrorMessage() {
+		ViewGroup parent = (ViewGroup) findViewById(R.id.llMessage);
+		parent.setVisibility(8);
+    	TextView ntv = (TextView) findViewById(R.id.tMessage);
+		ntv.setText(getString(R.string.dialog_error));
+	}
+	
+	
 
 }
