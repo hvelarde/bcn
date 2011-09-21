@@ -1,11 +1,13 @@
 package mx.croma.news.android.core;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import mx.croma.news.android.object.Publicacion;
 import mx.croma.news.android.object.PublicacionStorage;
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -21,14 +23,31 @@ public class CromaNewsAdapter extends BaseAdapter {
 		_context = ctx;
 	}
 	
-	public CromaNewsAdapter(String category, List<Noticia> noticias, Context ctx){
+	public CromaNewsAdapter(String category, String filter, List<Noticia> noticias, Context ctx){
+		Log.v("::::::VIA_CATEGORIA ",category);
 		_noticias = noticias;
 		_context = ctx;
-		if(category != null){
-			_category = category;
-			_noticias = new ArrayList<Noticia>();
-			for(Noticia n : noticias){
-				if(_category.equals(n.getCategoria())){
+		_category = category;
+		_noticias = new ArrayList<Noticia>();
+		for(Noticia n : noticias){
+			String n_date = n.getFecha();
+			Log.v(":::::::::DATE",n_date);
+			if (filter.equalsIgnoreCase("RECIENTES")) {				
+				if (IsRecent(n_date, 7)) {
+					if (category!="") {
+						if(_category.equals(n.getCategoria())){
+							_noticias.add(n);
+						}
+					} else {
+						_noticias.add(n);
+					}
+				}
+			} else {
+				if (category!="") {
+					if(_category.equals(n.getCategoria())){
+						_noticias.add(n);
+					}
+				} else {
 					_noticias.add(n);
 				}
 			}
@@ -36,6 +55,7 @@ public class CromaNewsAdapter extends BaseAdapter {
 	}
 	
 	public CromaNewsAdapter(Class<?> validClass, List<Noticia> noticias, Context ctx){
+		Log.v("::::::VIA_CLASS ",validClass.toString());
 		_context = ctx;
 		_noticias = new ArrayList<Noticia>();
 		if(validClass == Publicacion.class){
@@ -54,7 +74,6 @@ public class CromaNewsAdapter extends BaseAdapter {
 			}
 		}
 	}
-	
 	
 	private void addToPublicacionStorage(List<Noticia> noticias) {
 		for(Noticia n : noticias){
@@ -86,6 +105,24 @@ public class CromaNewsAdapter extends BaseAdapter {
 		}
 		nv.update(_noticias.get(arg0));
 		return nv;
+	}
+	
+	public boolean IsRecent(String strdate, int TimeInDays) {
+		boolean r = false;
+		long d = TimeInDays * 24 * 60 * 60 * 1000; 
+		Calendar t = Calendar.getInstance();
+		Calendar h = Calendar.getInstance();
+		t.set(Calendar.YEAR, Integer.parseInt(strdate.substring(0, 4)));
+		t.set(Calendar.MONTH, Integer.parseInt(strdate.substring(5, 7)));
+		t.set(Calendar.DATE, Integer.parseInt(strdate.substring(8, 10)));
+		long delta = Math.abs(h.getTimeInMillis()-t.getTimeInMillis());
+		if (delta>=d) {
+			r = false;
+		} else {
+			Log.v("DATE::::::", "IsRecent "+strdate);
+			r = true;
+		}
+		return r;
 	}
 
 }

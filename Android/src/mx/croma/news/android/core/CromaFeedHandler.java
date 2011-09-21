@@ -90,29 +90,11 @@ public class CromaFeedHandler extends DefaultHandler {
 			} else if (ln.endsWith(TAG_DATE)) {
 				_actual.setFecha(chars);
 			} else if (ln.endsWith(TAG_ITEM)) {
-				try {
-					Date d = formatter.parse(_actual.getFecha());
-					if(isRecent(d)){
-						Log.d("BCN", "Reciente: " + _actual.getFecha());
-						RecientesCache.getCache().getRecientes().add(_actual);
-					}else{
-						Log.d("BCN", "No reciente:" + _actual.getFecha());
-					}
-				} catch (ParseException e) {
-					Log.e("BCN", "Error parseando " + _actual.getFecha(), e);
-				}
+				Log.v("BCN::", _actual.getFecha()+" "+_actual.getTitulo()+" "+_actual.getCategoria()+ " "+_actual.getClass().toString());
 				_noticias.add(_actual);
 				onItem = false;
 			}
 		}
-	}
-	
-	private boolean isRecent(Date d){
-		Calendar current = Calendar.getInstance();
-		current.add(Calendar.DATE, -7);
-		Calendar target = (Calendar) current.clone();
-		target.setTimeInMillis(d.getTime());
-		return target.after(current);
 	}
 
 }

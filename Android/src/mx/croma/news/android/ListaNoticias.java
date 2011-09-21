@@ -130,9 +130,9 @@ public class ListaNoticias extends Activity {
 		if (categoria.equalsIgnoreCase("Documentos")) {
 			newsAdapter = new CromaNewsAdapter(Publicacion.class, cfh.getNoticias(), this);
 		} else if(categoria.equalsIgnoreCase("Recientes")) {
-			newsAdapter = new CromaNewsAdapter(RecientesCache.getCache().getRecientes(), this);
+			newsAdapter = new CromaNewsAdapter("", "RECIENTES",cfh.getNoticias(), this);
 		} else {
-			newsAdapter = new CromaNewsAdapter(categoria, cfh.getNoticias(), this);
+			newsAdapter = new CromaNewsAdapter(categoria, "",cfh.getNoticias(), this);
 		}
 		lv.setOnItemClickListener(new ListaListener());
 		lv.setAdapter(newsAdapter);	
